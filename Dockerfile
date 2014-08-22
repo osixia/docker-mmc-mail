@@ -26,7 +26,7 @@ CMD ["/sbin/my_init"]
 RUN apt-get -y update
 
 # Install phpMyAdmin
-RUN LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends slapd ldap-utils dovecot-imapd
+RUN LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends dovecot-imapd postfix postfix-ldap amavisd-new  libdbd-ldap-perl clamav clamav-daemon gzip bzip2 unzip unrar zoo arj spamassassin libnet-dns-perl razor pyzor
 
 # Expose http and https default ports
 EXPOSE 80 443
