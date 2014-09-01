@@ -1,4 +1,4 @@
-FROM osixia/baseimage:0.8.1
+FROM osixia/baseimage:0.8.2
 MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 
 # Default configuration: can be overridden at the docker command line
@@ -23,13 +23,13 @@ RUN /sbin/enable-service php5-fpm nginx
 CMD ["/sbin/my_init"]
 
 # Add multiverse repository 
-RUN sed -i -e "s!deb http://archive.ubuntu.com/ubuntu/ trusty main restricted!deb http://archive.ubuntu.com/ubuntu/ trusty main restricted multiverse!g" /etc/apt/sources.list
+RUN sed -i -e "s_deb http://archive.ubuntu.com/ubuntu/ trusty main restricted_deb http://archive.ubuntu.com/ubuntu/ trusty main restricted multiverse_g" /etc/apt/sources.list
 
 # Resynchronize the package index files from their sources
 RUN apt-get -y update
 
 # Install phpMyAdmin
-RUN LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends dovecot-imapd dovecot-ldap postfix postfix-ldap mmc-agent amavisd-new  libdbd-ldap-perl clamav clamav-daemon gzip bzip2 unzip unrar zoo arj spamassassin libnet-dns-perl razor pyzor
+RUN LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends dovecot-imapd dovecot-ldap postfix postfix-ldap mmc-agent amavisd-new libdbd-ldap-perl clamav clamav-daemon gzip bzip2 unzip unrar zoo arj spamassassin libnet-dns-perl razor pyzor
 
 # Expose http and https default ports
 #EXPOSE 80 443
