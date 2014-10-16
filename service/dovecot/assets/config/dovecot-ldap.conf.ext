@@ -1,7 +1,7 @@
 hosts = 127.0.0.1 
 auth_bind = yes 
 ldap_version = 3 
-base = ou=Users,dc=example,dc=org 
+base = ou=Users,dc=example,dc=com
 user_attrs = mailbox=home 
 user_filter = (&(objectClass=mailAccount)(mail=%u)(mailenable=OK)) 
 pass_attrs = mail=user,userPassword=password 
