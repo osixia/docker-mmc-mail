@@ -1,0 +1,6 @@
+# 
+#  SpamAssassin maintenance for amavisd-new 
+# 
+# m h dom mon dow user  command 
+00 20   * * 6   root    /sbin/learn-spam.sh > /var/log/learn-spam.log 2> /var/log/learn-spam.err 
+18 */3  * * *   amavis  test -e /usr/sbin/amavisd-new-cronjob && /usr/sbin/amavisd-new-cronjob sa-sync

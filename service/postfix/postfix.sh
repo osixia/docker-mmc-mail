@@ -3,7 +3,7 @@
 # -e Exit immediately if a command exits with a non-zero status
 set -e
 
-$HOSTNAME=${HOSTNAME}
+HOSTNAME=${HOSTNAME}
 LDAP_HOST=${LDAP_HOST}
 LDAP_BASE_DN=${LDAP_BASE_DN}
 HOSTNAME=${HOSTNAME}
@@ -15,7 +15,7 @@ if [ ! -e /etc/postfix/docker_bootstrapped ]; then
 
   # Generate ssl cert if needed
   mkdir -p /etc/ssl/smtp
-  /sbin/create-ssl-cert $SMTP_HOSTNAME /etc/ssl/smtp/$SMTP_SSL_CRT_FILENAME /etc/ssl/smtp/$SMTP_SSL_KEY_FILENAME
+  /sbin/create-ssl-cert $HOSTNAME /etc/ssl/smtp/$SMTP_SSL_CRT_FILENAME /etc/ssl/smtp/$SMTP_SSL_KEY_FILENAME
 
   echo "$HOSTNAME" >> /etc/mailname
 

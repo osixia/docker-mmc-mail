@@ -29,6 +29,12 @@ if [ ! -e /etc/dovecot/docker_bootstrapped ]; then
   # Set ldap base dn
   sed -i -e "s/dc=example,dc=com/$LDAP_BASE_DN/g" /etc/dovecot/dovecot-ldap.conf.ext
 
+  mkdir /etc/dovecot/global_script
+  mv /etc/dovecot/config/dovecot.sieve /etc/dovecot/global_script/dovecot.sieve
+
+  chown -R vmail:mail /etc/dovecot/global_script/ 
+  chmod -R 770 /etc/dovecot/global_script/
+
 
   touch /etc/dovecot/docker_bootstrapped
 else
