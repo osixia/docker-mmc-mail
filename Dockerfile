@@ -2,9 +2,17 @@ FROM osixia/baseimage:0.9.0
 MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 
 # Default configuration: can be overridden at the docker command line
+ENV HOSTNAME mail.example.com
+
 ENV LDAP_HOST 127.0.0.1
 ENV LDAP_PORT 389
 ENV LDAP_BASE_DN dc=example,dc=com
+
+# SSL filename
+ENV SMTP_SSL_CRT_FILENAME smtp.crt
+ENV SMTP_SSL_KEY_FILENAME smtp.key
+ENV IMAP_SSL_CRT_FILENAME imap.crt
+ENV IMAP_SSL_KEY_FILENAME imap.key
 
 # Disable SSH
 # RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
@@ -34,6 +42,10 @@ ADD service/dovecot/dovecot.sh /etc/service/dovecot/run
 # Add postfix config directory and daemon
 ADD service/postfix/assets/config /etc/postfix/config
 ADD service/postfix/postfix.sh /etc/service/postfix/run
+
+# Add amavis config directory and daemon
+ADD service/amavis/assets/config /etc/amavis/config
+ADD service/amavis/amavis.sh /etc/service/amavis/run
 
 # install services
 ADD service/install.sh /etc/my_init.d/install.sh
