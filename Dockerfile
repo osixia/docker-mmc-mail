@@ -24,12 +24,16 @@ RUN apt-get -y update
 # Install phpMyAdmin
 RUN LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends dovecot-imapd dovecot-ldap postfix postfix-ldap python-mmc-mail amavisd-new libdbd-ldap-perl clamav clamav-daemon gzip bzip2 unzip unrar zoo arj spamassassin libnet-dns-perl razor pyzor
 
-# Expose http and https default portss
+# Expose http and https default ports
 #EXPOSE 80 443
 
-# Add dovecot config directory and deamon
+# Add dovecot config directory and daemon
 ADD service/dovecot/assets/config /etc/dovecot/config
 ADD service/dovecot/dovecot.sh /etc/service/dovecot/run
+
+# Add postfix config directory and daemon
+ADD service/postfix/assets/config /etc/postfix/config
+ADD service/postfix/postfix.sh /etc/service/postfix/run
 
 # install services
 ADD service/install.sh /etc/my_init.d/install.sh

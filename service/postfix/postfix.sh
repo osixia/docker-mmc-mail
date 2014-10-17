@@ -9,7 +9,9 @@ LDAP_BASE_DN=${LDAP_BASE_DN}
 # dovecot is not already configured
 if [ ! -e /etc/postfix/docker_bootstrapped ]; then
 
-  cp /usr/share/doc/mmc/contrib/mail/postfix/with-virtual-domains/ldap-* /etc/postfix/
+  sudo chmod g+s /usr/sbin/postdrop /usr/sbin/postqueue
+
+  cp /usr/share/doc/mmc/contrib/mail/postfix/with-virtual-domains/* /etc/postfix/
 
   for i in `ls /etc/postfix/ldap-*.cf`;
   do 
@@ -18,28 +20,30 @@ if [ ! -e /etc/postfix/docker_bootstrapped ]; then
     sed -i "s/dc=mandriva,dc=com/$LDAP_BASE_DN/" $i;
   done
 
+  sed -i '/myorigin =/d' /etc/postfix/main.cf
+
+  echo "# Dovecot LDA " >> /etc/postfix/main.cf
   echo "virtual_transport = dovecot" >> /etc/postfix/main.cf
   echo "dovecot_destination_recipient_limit = 1" >> /etc/postfix/main.cf
+
+  cat /etc/postfix/config/sasl.cf >> /etc/postfix/main.cf
+  cat /etc/postfix/config/spam.cf >> /etc/postfix/main.cf
 
   echo "# Dovecot LDA" >> /etc/postfix/master.cf
   echo "dovecot    unix  -       n       n       -       -       pipe " >> /etc/postfix/master.cf
   echo "    flags=DRhu user=vmail:mail argv=/usr/lib/dovecot/deliver -d \$recipient" >> /etc/postfix/master.cf
 
-dovecot    unix  -       n       n       -       -       pipe 
-    flags=DRhu user=vmail:mail argv=/usr/lib/dovecot/deliver -d $recipient
-
-  # Set ldap host
-  sed -i -e "s/127.0.0.1/$LDAP_HOST/g" /etc/dovecot/dovecot-ldap.conf.ext
-
-  # Set ldap base dn
-  sed -i -e "s/dc=example,dc=com/$LDAP_BASE_DN/g" /etc/dovecot/dovecot-ldap.conf.ext
-
+  echo "# SASL" >> /etc/postfix/master.cf
+  echo "smtps     inet  n       -       -       -       -       smtpd " >> /etc/postfix/master.cf
+  echo "  -o smtpd_tls_wrappermode=yes " >> /etc/postfix/master.cf
+  echo "  -o smtpd_sasl_auth_enable=yes" >> /etc/postfix/master.cf
 
   touch /etc/postfix/docker_bootstrapped
 else
   status "found already-configured dovecot"
 fi
 
-exec /usr/sbin/dovecot -F
+# exec /usr/sbin/dovecot -F
+
 
 
