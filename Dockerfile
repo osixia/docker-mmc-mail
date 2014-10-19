@@ -2,7 +2,7 @@ FROM osixia/baseimage:0.9.0
 MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 
 # Default configuration: can be overridden at the docker command line
-ENV HOSTNAME mail.example.com
+ENV DOMAIN_NAME example.com
 
 ENV LDAP_HOST 127.0.0.1
 ENV LDAP_PORT 389
@@ -30,7 +30,7 @@ RUN echo "deb http://mds.mandriva.org/pub/mds/debian wheezy main" >> /etc/apt/so
 RUN apt-get -y update
 
 # Install phpMyAdmin
-RUN LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends dovecot-imapd dovecot-ldap postfix postfix-ldap python-mmc-mail amavisd-new libdbd-ldap-perl clamav clamav-daemon gzip bzip2 unzip unrar zoo arj spamassassin libnet-dns-perl razor pyzor
+RUN LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends dovecot-imapd dovecot-ldap dovecot-sieve dovecot-managesieved postfix postfix-ldap python-mmc-mail amavisd-new libdbd-ldap-perl clamav clamav-daemon gzip bzip2 unzip unrar-free p7zip nomarch ripole cabextract zoo arj spamassassin libnet-dns-perl razor pyzor
 
 # Expose http and https default ports
 #EXPOSE 80 443
@@ -41,11 +41,17 @@ ADD service/dovecot/dovecot.sh /etc/service/dovecot/run
 
 # Add postfix config directory and daemon
 ADD service/postfix/assets/config /etc/postfix/config
-ADD service/postfix/postfix.sh /etc/service/postfix/run
 
 # Add amavis config directory and daemon
 ADD service/amavis/assets/config /etc/amavis/config
 ADD service/amavis/amavis.sh /etc/service/amavis/run
+
+# Add spamassassin config directory and daemon
+ADD service/spamassassin/assets /etc/spamassassin/assets
+ADD service/spamassassin/spamassassin.sh /etc/service/spamassassin/run
+
+# Add clamav daemon
+ADD service/clamav/clamav.sh /etc/service/clamav/run
 
 # install services
 ADD service/install.sh /etc/my_init.d/install.sh

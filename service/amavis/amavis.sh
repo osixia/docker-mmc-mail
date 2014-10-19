@@ -5,17 +5,15 @@ set -e
 
 LDAP_HOST=${LDAP_HOST}
 LDAP_BASE_DN=${LDAP_BASE_DN}
-HOSTNAME=${HOSTNAME}
+DOMAIN_NAME=${DOMAIN_NAME}
 
-# dovecot is not already configured
+# amavis is not already configured
 if [ ! -e /etc/amavis/docker_bootstrapped ]; then
-
-  adduser clamav amavis
 
   cp  /etc/amavis/config/* /etc/amavis/conf.d/
 
-  # Set hostname
-  sed -i "s/mail.example.com/$HOSTNAME/" /etc/amavis/conf.d/05-node_id
+  # Set DOMAIN_NAME
+  sed -i "s/mail.example.com/smtp.$DOMAIN_NAME/" /etc/amavis/conf.d/05-node_id
 
   # Set ldap host
   sed -i "s/127.0.0.1/$LDAP_HOST/" /etc/amavis/conf.d/50-user
@@ -24,8 +22,17 @@ if [ ! -e /etc/amavis/docker_bootstrapped ]; then
   # Set ldap base dn
   sed -i -e "s/dc=example,dc=com/$LDAP_BASE_DN/g" /etc/amavis/conf.d/50-user
 
+  chown amavis -R /usr/lib/perl5/auto/
+
   touch /etc/amavis/docker_bootstrapped
 else
-  status "found already-configured dovecot"
+  status "found already-configured amavis"
 fi
 
+# exec amavis if spamassasin and clamav are ready
+if [ -e /etc/spamassassin/docker_bootstrapped ] && [ -e /etc/clamav/docker_bootstrapped ]; then
+  touch /etc/amavis/docker_exec
+  exec /usr/sbin/amavisd-new foreground
+else
+  sleep 60
+fi
