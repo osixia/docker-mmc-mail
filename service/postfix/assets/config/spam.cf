@@ -28,7 +28,6 @@ smtpd_sender_restrictions =
     permit_sasl_authenticated, 
     reject_non_fqdn_sender, 
     reject_unknown_sender_domain, 
-    check_sender_access regexp:/etc/postfix/sender_access_catchall, 
     permit
  
 # Requirement for the recipient address 

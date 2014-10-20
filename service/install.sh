@@ -63,11 +63,9 @@ if [ ! -e /etc/postfix/docker_bootstrapped ]; then
   echo "  -o smtpd_tls_wrappermode=yes " >> /etc/postfix/master.cf
   echo "  -o smtpd_sasl_auth_enable=yes" >> /etc/postfix/master.cf
 
+  # Use AMaVis 
+  echo "content_filter = amavis:[127.0.0.1]:10024" >> /etc/postfix/main.cf
   postfix-add-filter amavis 10025
-
-  touch /etc/postfix/sender_access_catchall
-  echo "/^/ FILTER amavis:[127.0.0.1]:10024" >> /etc/postfix/sender_access_catchall
-
 
   touch /etc/postfix/docker_bootstrapped
 else

@@ -8,7 +8,7 @@ if [ ! -e /etc/spamassassin/docker_bootstrapped ]; then
 
   sed -i "s/CRON=0/CRON=1/" /etc/default/spamassassin
 
-  echo "00 20   * * 6   root    /etc/spamassassin/assets/learn-spam.sh > /var/log/learn-spam.log 2> /var/log/learn-spam.err" >> /etc/cron.d/amavisd-new
+  echo "00 03   * * 7   root    /etc/spamassassin/assets/learn-spam.sh > /var/log/learn-spam.log 2> /var/log/learn-spam.err" >> /etc/cron.d/amavisd-new
 
   sa-update
 
