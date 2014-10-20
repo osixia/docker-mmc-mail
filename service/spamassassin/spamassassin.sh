@@ -7,7 +7,6 @@ set -e
 if [ ! -e /etc/spamassassin/docker_bootstrapped ]; then
 
   sed -i "s/CRON=0/CRON=1/" /etc/default/spamassassin
-  sed -i "s/\$sa_spam_subject_tag/#\$sa_spam_subject_tag/" /etc/default/spamassassin
 
   echo "00 20   * * 6   root    /etc/spamassassin/assets/learn-spam.sh > /var/log/learn-spam.log 2> /var/log/learn-spam.err" >> /etc/cron.d/amavisd-new
 
@@ -24,4 +23,4 @@ else
   status "found already-configured spamassasin"
 fi
 
-exec /usr/sbin/spamd -d
+exec /usr/sbin/spamd -r /var/run/spamd.pid

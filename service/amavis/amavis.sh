@@ -30,8 +30,7 @@ else
 fi
 
 # exec amavis if spamassasin and clamav are ready
-if [ -e /etc/spamassassin/docker_bootstrapped ] && [ -e /etc/clamav/docker_bootstrapped ]; then
-  touch /etc/amavis/docker_exec
+if [ -e /var/run/spamd.pid ] && [ -e /run/clamav/clamd.pid ]; then
   exec /usr/sbin/amavisd-new foreground
 else
   sleep 60

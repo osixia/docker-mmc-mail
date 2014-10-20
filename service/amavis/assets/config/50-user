@@ -1,5 +1,12 @@
 use strict;
 
+# Spam is delivered
+$final_spam_destiny       = D_PASS; 
+
+# No need for subject tag, header are enough 
+$sa_spam_subject_tag = '';
+
+
 # Enable LDAP support 
 $enable_ldap  = 1; 
  

@@ -21,6 +21,8 @@ if [ ! -e /etc/postfix/docker_bootstrapped ]; then
   mkdir -p /etc/ssl/smtp
   /sbin/create-ssl-cert smtp.$DOMAIN_NAME /etc/ssl/smtp/$SMTP_SSL_CRT_FILENAME /etc/ssl/smtp/$SMTP_SSL_KEY_FILENAME
 
+  chown -R root:postdrop /usr/sbin/postqueue
+  chown -R root:postdrop /usr/sbin/postdrop
   sudo chmod g+s /usr/sbin/postdrop /usr/sbin/postqueue
 
   cp /usr/share/doc/mmc/contrib/mail/postfix/with-virtual-domains/* /etc/postfix/

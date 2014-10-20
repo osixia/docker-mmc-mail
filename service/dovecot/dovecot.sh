@@ -36,7 +36,6 @@ if [ ! -e /etc/dovecot/docker_bootstrapped ]; then
   chown -R vmail:mail /etc/dovecot/global_script/ 
   chmod -R 770 /etc/dovecot/global_script/
 
-
   touch /etc/dovecot/docker_bootstrapped
 else
   status "found already-configured dovecot"
@@ -44,7 +43,7 @@ fi
 
 
 # exec postfix and dovecot if amavis is ready
-if [ -e /etc/amavis/docker_exec ]; then
+if [ -e /var/run/amavis/amavis.pid ]; then
   service postfix start
   exec /usr/sbin/dovecot -F
 else  
