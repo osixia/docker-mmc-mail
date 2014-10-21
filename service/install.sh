@@ -32,6 +32,7 @@ if [ ! -e /etc/postfix/docker_bootstrapped ]; then
     sed -i "s/server_host = 127.0.0.1/server_host = $LDAP_HOST/" $i;
     sed -i "s/server_port = 389/server_port = $LDAP_PORT/" $i;
     sed -i "s/dc=mandriva,dc=com/$LDAP_BASE_DN/" $i;
+    echo "start_tls = yes" >> $i;
   done
 
   sed -i "s/mail.mandriva.com/$DOMAIN_NAME/" /etc/postfix/main.cf

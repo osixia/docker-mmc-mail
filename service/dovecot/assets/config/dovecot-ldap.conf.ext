@@ -1,4 +1,5 @@
 hosts = 127.0.0.1 
+tls=yes
 auth_bind = yes 
 ldap_version = 3 
 base = ou=Users,dc=example,dc=com
