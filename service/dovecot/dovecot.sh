@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# -e Exit immediately if a command exits with a non-zero status
-set -e
-
 DOMAIN_NAME=${DOMAIN_NAME}
 LDAP_HOST=${LDAP_HOST}
 LDAP_BASE_DN=${LDAP_BASE_DN}
@@ -16,7 +13,7 @@ if [ ! -e /etc/dovecot/docker_bootstrapped ]; then
   cp /etc/dovecot/config/dovecot-ldap.conf.ext /etc/dovecot/dovecot-ldap.conf.ext
 
   mkdir -p /etc/ssl/imap
-  /sbin/create-ssl-cert imap.$DOMAIN_NAME /etc/ssl/imap/$IMAP_SSL_CRT_FILENAME /etc/ssl/imap/$IMAP_SSL_KEY_FILENAME
+  /sbin/ssl-create-cert imap.$DOMAIN_NAME /etc/ssl/imap/$IMAP_SSL_CRT_FILENAME /etc/ssl/imap/$IMAP_SSL_KEY_FILENAME
 
   # SSL Cert
   sed -i -e "s/imap.crt/$IMAP_SSL_CRT_FILENAME/g" /etc/dovecot/dovecot.conf
@@ -43,7 +40,7 @@ fi
 
 
 # exec postfix and dovecot if amavis is ready
-if [ -e /var/run/amavis/amavis.pid ]; then
+if [ -e /var/run/amavis/amavisd.pid ]; then
   service postfix start
   exec /usr/sbin/dovecot -F
 else  

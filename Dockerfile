@@ -1,4 +1,4 @@
-FROM osixia/baseimage:0.9.0
+FROM osixia/baseimage:0.10.0
 MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 
 # Default configuration: can be overridden at the docker command line
@@ -16,6 +16,9 @@ ENV IMAP_SSL_KEY_FILENAME imap.key
 
 # Disable SSH
 # RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
+
+# Enable ca-authority
+RUN /sbin/enable-service ca-authority
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]

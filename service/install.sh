@@ -19,7 +19,7 @@ if [ ! -e /etc/postfix/docker_bootstrapped ]; then
 
   # Generate ssl cert if needed
   mkdir -p /etc/ssl/smtp
-  /sbin/create-ssl-cert smtp.$DOMAIN_NAME /etc/ssl/smtp/$SMTP_SSL_CRT_FILENAME /etc/ssl/smtp/$SMTP_SSL_KEY_FILENAME
+  /sbin/ssl-create-cert smtp.$DOMAIN_NAME /etc/ssl/smtp/$SMTP_SSL_CRT_FILENAME /etc/ssl/smtp/$SMTP_SSL_KEY_FILENAME
 
   chown -R root:postdrop /usr/sbin/postqueue
   chown -R root:postdrop /usr/sbin/postdrop
