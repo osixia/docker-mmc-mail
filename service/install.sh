@@ -33,6 +33,10 @@ if [ ! -e /etc/postfix/docker_bootstrapped ]; then
     sed -i "s/server_port = 389/server_port = $LDAP_PORT/" $i;
     sed -i "s/dc=mandriva,dc=com/$LDAP_BASE_DN/" $i;
     echo "start_tls = yes" >> $i;
+    echo "tls_ca_cert_file = /etc/ssl/certs/docker_baseimage_gnutls_cacert.pem" >> $i;
+    echo "tls_cert = /etc/ssl/smtp/$SMTP_SSL_CRT_FILENAME" >> $i;
+    echo "tls_key = /etc/ssl/smtp/$SMTP_SSL_KEY_FILENAME" >> $i;
+    echo "tls_require_cert = no" >> $i;
   done
 
   sed -i "s/mail.mandriva.com/$DOMAIN_NAME/" /etc/postfix/main.cf
