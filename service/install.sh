@@ -36,8 +36,10 @@ if [ ! -e /etc/postfix/docker_bootstrapped ]; then
     echo "tls_ca_cert_file = /etc/ssl/certs/docker_baseimage_gnutls_cacert.pem" >> $i;
     echo "tls_cert = /etc/ssl/smtp/$SMTP_SSL_CRT_FILENAME" >> $i;
     echo "tls_key = /etc/ssl/smtp/$SMTP_SSL_KEY_FILENAME" >> $i;
-    echo "tls_require_cert = no" >> $i;
+    echo "tls_require_cert = yes" >> $i;
   done
+
+  sed -i 's,TLS_CACERT.*,TLS_CACERT /etc/ssl/certs/docker_baseimage_gnutls_cacert.pem,g' /etc/ldap/ldap.conf
 
   sed -i "s/mail.mandriva.com/$DOMAIN_NAME/" /etc/postfix/main.cf
 

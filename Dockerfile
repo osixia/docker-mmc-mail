@@ -18,7 +18,7 @@ ENV IMAP_SSL_KEY_FILENAME imap.key
 # RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
 
 # Enable ca-authority
-RUN /sbin/enable-service ca-authority
+RUN /sbin/enable-service dnsmasq ca-authority
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
