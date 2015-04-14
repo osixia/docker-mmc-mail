@@ -4,17 +4,14 @@ MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
 
-# Install apache2 and php5-fpm using osixia/baseimage utils
-# Caution: /sbin/enable-service arguments order is important
-# php5-fpm install will detect apache2 and configure it
-
 # Download, check integrity and unzip phpMyAdmin to /var/www/phpmyadmin_bootstrap
 RUN apt-get update && /sbin/enable-service ssl-kit \
-	&& LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends postfix postfix-ldap \
-	&& curl -o phpmyadmin.tar.gz -SL http://downloads.sourceforge.net/project/phpmyadmin/phpMyAdmin/${PHPMYADMIN_VERSION}/phpMyAdmin-${PHPMYADMIN_VERSION}-all-languages.tar.gz \
-	&& echo "$PHPMYADMIN_SHA1 *phpmyadmin.tar.gz" | sha1sum -c - \
-	&& mkdir -p /var/www/phpmyadmin_bootstrap /var/www/phpmyadmin \
-	&& tar -xzf phpmyadmin.tar.gz --strip 1 -C /var/www/phpmyadmin_bootstrap
+	&& LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+	postfix postfix-ldap  \
+	dovecot-core dovecot-imapd dovecot-lmtpd dovecot-ldap dovecot-sieve dovecot-managesieved \
+	opendkim opendkim-tools \
+	spamassassin spamc \
+	clamav-milter
 
 # Add install script and phpMyAdmin assets
 ADD service/install.sh /tmp/install.sh

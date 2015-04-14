@@ -1,6 +1,10 @@
 #!/bin/bash -e
 # this script is run during the image build
 
+# backup default config files
+cp /etc/postfix/main.cf /etc/postfix/main.cf.bak
+cp /etc/postfix/master.cf /etc/postfix/master.cf.bak
+
 # Add phpMyAdmin virtualhosts
 ln -s /osixia/phpmyadmin/apache2/phpmyadmin.conf /etc/apache2/sites-available/phpmyadmin.conf
 ln -s /osixia/phpmyadmin/apache2/phpmyadmin-ssl.conf /etc/apache2/sites-available/phpmyadmin-ssl.conf
