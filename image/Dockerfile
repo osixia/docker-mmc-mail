@@ -15,21 +15,22 @@ RUN apt-get update && /sbin/enable-service ssl-kit \
 
 # Add install script and phpMyAdmin assets
 ADD service/install.sh /tmp/install.sh
-ADD service/phpmyadmin/assets /osixia/phpmyadmin
+ADD service/postfix/assets /osixia/postfix
+ADD service/dovecot/assets /osixia/dovecot
 
 # Run install script and clean all
 RUN ./tmp/install.sh \
-	&& rm phpmyadmin.tar.gz \
 	&& apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add default env variables
 ADD env.yml /etc/env.yml
 
 # Add phpMyAdmin container start config
-ADD service/phpmyadmin/container-start.sh /etc/my_init.d/phpmyadmin
+ADD service/postfix/container-start.sh /etc/my_init.d/postfix
+ADD service/dovecot/container-start.sh /etc/my_init.d/dovecot
 
 # Set wordpress data directory in a data volume
-VOLUME ["/var/www/phpmyadmin"]
+VOLUME ["/var/mail"]
 
-# Expose http and https default ports
-EXPOSE 80 443
+# Expose imap and smtp ports
+EXPOSE 143 587

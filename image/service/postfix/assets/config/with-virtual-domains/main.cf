@@ -32,7 +32,7 @@ alias_database = hash:/etc/aliases
 # ----------------------------------------------------------------------
 smtp_tls_loglevel               = 1
 smtp_tls_security_level         = may
-smtp_tls_CAfile                 = /etc/ssl/certs/CAroot.crt
+smtp_tls_CAfile                 = /osixia/postfix/ssl/ca.crt
 smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
 
 # SMTPD ( INCOMING )
@@ -48,9 +48,9 @@ smtpd_tls_exclude_ciphers     = aNULL, eNULL, EXPORT, MD5, DES, RC4, PSK
 tls_random_source = dev:/dev/urandom
 
 # TLS PUBLIC CERTIFICATES AND PRIVATE KEY
-smtpd_tls_CAfile    = /etc/ssl/certs/CAroot.crt
-smtpd_tls_cert_file = /etc/ssl/certs/mailserver.crt
-smtpd_tls_key_file  = /etc/ssl/private/mailserver.key
+smtpd_tls_CAfile    = /osixia/postfix/ssl/ca.crt
+smtpd_tls_cert_file = /osixia/postfix/ssl/mailserver.crt
+smtpd_tls_key_file  = /osixia/postfix/ssl/mailserver.key
 
 # TLS/LMTP SESSION CACHE DATABASES
 smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache

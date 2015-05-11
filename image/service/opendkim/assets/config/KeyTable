@@ -1,0 +1,1 @@
+mail._domainkey.domain.tld domain.tld:mail:/etc/opendkim/keys/domain.tld/mail.private
