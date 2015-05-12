@@ -1,0 +1,1 @@
+ldapsearch -x -h 172.17.0.12 -b dc=example,dc=org "(&(objectClass=mailDomain)(virtualdomain=*))"

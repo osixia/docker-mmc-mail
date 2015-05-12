@@ -28,17 +28,24 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     sed -i "s,127.0.0.1,$LDAP_URL," $i;
     sed -i "s/dc=mandriva,dc=com/$LDAP_BASE_DN/" $i;
 
-    # create phpLDAPadmin vhost
-    if [ "${LDAP_USE_TLS,,}" == "true" ]; then
+    # ldap bind dn
+    if [ -n "${LDAP_BIND_DN}" ]; then
+      echo "bind_dn = $LDAP_BIND_DN" >> $i;
+    fi
 
+    # ldap bind dn
+    if [ -n "${LDAP_BIND_PW}" ]; then
+      echo "bind_pw = $LDAP_BIND_PW" >> $i;
+    fi
+
+    # ldap tls config
+    if [ "${LDAP_USE_TLS,,}" == "true" ]; then
       echo "start_tls = yes" >> $i;
       echo "tls_ca_cert_file = /osixia/postfix/ssl/$LDAP_SSL_CA_CRT_FILENAME" >> $i;
       echo "tls_cert = /osixia/postfix/ssl/$LDAP_SSL_CRT_FILENAME" >> $i;
       echo "tls_key = /osixia/postfix/ssl/$LDAP_SSL_KEY_FILENAME" >> $i;
       echo "tls_require_cert = yes" >> $i;
-
     fi
-
   done
 
   touch $FIRST_START_DONE

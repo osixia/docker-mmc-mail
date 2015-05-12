@@ -1,0 +1,6 @@
+# Update spamassassin rules
+20 02 * * * /usr/bin/sa-update
+
+# Learning Spam
+30 02 * * * /usr/bin/sa-learn --ham /var/mail/vhosts/*/*/cur/*
+40 02 * * * /usr/bin/sa-learn --spam /var/mail/vhosts/*/*/.Junk/cur/*

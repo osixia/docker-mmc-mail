@@ -13,10 +13,13 @@ RUN apt-get update && /sbin/enable-service ssl-kit \
 	spamassassin spamc \
 	clamav-milter
 
-# Add install script and phpMyAdmin assets
+# Add install script and services assets
 ADD service/install.sh /tmp/install.sh
-ADD service/postfix/assets /osixia/postfix
+ADD service/clamav/assets /osixia/clamav
 ADD service/dovecot/assets /osixia/dovecot
+ADD service/opendkim/assets /osixia/opendkim
+ADD service/postfix/assets /osixia/postfix
+ADD service/spamassassin/assets /osixia/spamassassin
 
 # Run install script and clean all
 RUN ./tmp/install.sh \
