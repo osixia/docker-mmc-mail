@@ -1,2 +1,2 @@
 #!/bin/bash -e
-exec /usr/sbin/clamd --foreground=true
+exec /usr/sbin/clamd

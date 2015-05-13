@@ -25,6 +25,7 @@ chown -R vmail:vmail /var/mail/sieve
 sievec /var/mail/sieve/default.sieve
 
 # clamav
+sed -i "s|Foreground false|Foreground true|g" /etc/clamav/clamd.conf
 cp /osixia/clamav/config/clamav-milter.conf /etc/clamav/clamav-milter.conf
 
 freshclam
