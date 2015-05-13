@@ -17,4 +17,6 @@ if [ ! -e "$FIRST_START_DONE" ]; then
   touch $FIRST_START_DONE
 fi
 
+exec /usr/sbin/dovecot
+
 exit 0

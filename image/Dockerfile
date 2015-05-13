@@ -11,7 +11,8 @@ RUN apt-get update && /sbin/enable-service ssl-kit \
 	dovecot-core dovecot-imapd dovecot-lmtpd dovecot-ldap dovecot-sieve dovecot-managesieved \
 	opendkim opendkim-tools \
 	spamassassin spamc \
-	clamav-milter
+	clamav clamav-base clamav-freshclam clamav-daemon clamav-milter \
+	arj bzip2 cabextract cpio file gzip lzop nomarch p7zip pax rpm unrar unzip zip zoo
 
 # Add install script and services assets
 ADD service/install.sh /tmp/install.sh
@@ -29,11 +30,12 @@ RUN ./tmp/install.sh \
 ADD env.yml /etc/env.yml
 
 # Add phpMyAdmin container start config
-ADD service/postfix/container-start.sh /etc/my_init.d/postfix
-ADD service/opendkim/container-start.sh /etc/my_init.d/opendkim
-ADD service/dovecot/container-start.sh /etc/my_init.d/dovecot
+ADD service/postfix/container-start.sh /etc/my_init.d/01-postfix
+ADD service/dovecot/container-start.sh /etc/my_init.d/02-dovecot
+#ADD service/opendkim/container-start.sh /etc/my_init.d/03-opendkim
 
 ADD service/clamav/daemon.sh /etc/service/clamav/run
+ADD service/clamav/daemon2.sh /etc/service/clamav-milter/run
 ADD service/opendkim/daemon.sh /etc/service/opendkim/run
 ADD service/spamassassin/daemon.sh /etc/service/spamassassin/run
 

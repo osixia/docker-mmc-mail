@@ -25,6 +25,9 @@ chown -R vmail:vmail /var/mail/sieve
 sievec /var/mail/sieve/default.sieve
 
 # clamav
+mkdir -p /var/run/clamav/
+chown clamav /var/run/clamav/
+
 mkdir /var/spool/postfix/clamav
 chown clamav /var/spool/postfix/clamav
 

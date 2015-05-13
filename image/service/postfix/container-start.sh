@@ -24,7 +24,7 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 
   # ldap config
   for i in `ls /etc/postfix/ldap-*.cf`;
-  do 
+  do
     sed -i "s,127.0.0.1,$LDAP_URL," $i;
     sed -i "s/dc=mandriva,dc=com/$LDAP_BASE_DN/" $i;
 
@@ -57,5 +57,7 @@ echo "127.0.0.1 localhost.localdomain" >> /etc/hosts
 
 # fix files permissions
 chown -R vmail:vmail /var/mail
+
+service postfix start
 
 exit 0
