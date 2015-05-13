@@ -6,7 +6,6 @@ FIRST_START_DONE="/etc/docker-postfix-first-start-done"
 if [ ! -e "$FIRST_START_DONE" ]; then
 
   # copy config
-  cp /osixia/postfix/config/common/* /etc/postfix/
   cp /osixia/postfix/config/${POSTFIX_CONFIG}/* /etc/postfix/
 
   # set mailserver hostname

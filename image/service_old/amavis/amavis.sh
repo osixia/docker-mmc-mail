@@ -10,8 +10,6 @@ DOMAIN_NAME=${DOMAIN_NAME}
 # amavis is not already configured
 if [ ! -e /etc/amavis/docker_bootstrapped ]; then
 
-  cp  /etc/amavis/config/* /etc/amavis/conf.d/
-
   # Set DOMAIN_NAME
   sed -i "s/mail.example.com/smtp.$DOMAIN_NAME/" /etc/amavis/conf.d/05-node_id
 

@@ -5,8 +5,6 @@ FIRST_START_DONE="/etc/docker-dovecot-first-start-done"
 # container first start
 if [ ! -e "$FIRST_START_DONE" ]; then
 
-	cp -R /osixia/dovecot/config/* /etc/dovecot
-
 	sed -i "s,ldap://ldap.example.org:389,$LDAP_URL," /etc/dovecot/dovecot-ldap.conf.ext
 	sed -i "s/dc=mandriva,dc=com/$LDAP_BASE_DN/" /etc/dovecot/dovecot-ldap.conf.ext
 

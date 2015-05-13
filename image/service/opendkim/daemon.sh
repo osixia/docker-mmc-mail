@@ -1,2 +1,2 @@
 #!/bin/bash -e
-exec /usr/sbin/opendkim -f
+exec /sbin/setuser opendkim /usr/sbin/opendkim -f

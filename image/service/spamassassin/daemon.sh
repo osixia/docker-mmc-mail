@@ -1,2 +1,2 @@
 #!/bin/bash -e
-/usr/sbin/spamd
+exec /usr/sbin/spamd

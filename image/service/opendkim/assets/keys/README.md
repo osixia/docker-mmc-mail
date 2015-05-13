@@ -1,5 +1,5 @@
 Add here your opendim keys like:
-domain.tld.private
-example.org.private
-example2.org.private
+domain.tld.key
+example.org.key
+example2.org.key
 ...
