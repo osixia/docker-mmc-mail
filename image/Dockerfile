@@ -30,7 +30,12 @@ ADD env.yml /etc/env.yml
 
 # Add phpMyAdmin container start config
 ADD service/postfix/container-start.sh /etc/my_init.d/postfix
+ADD service/opendkim/container-start.sh /etc/my_init.d/opendkim
 ADD service/dovecot/container-start.sh /etc/my_init.d/dovecot
+
+ADD service/clamav/daemon.sh /etc/service/clamav/run
+ADD service/opendkim/daemon.sh /etc/service/opendkim/run
+ADD service/spamassassin/daemon.sh /etc/service/spamassassin/run
 
 # Set wordpress data directory in a data volume
 VOLUME ["/var/mail"]

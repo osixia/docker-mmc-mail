@@ -25,11 +25,11 @@ chown -R vmail:vmail /var/mail/sieve
 sievec /var/mail/sieve/default.sieve
 
 # clamav
+mkdir /var/spool/postfix/clamav
+chown clamav /var/spool/postfix/clamav
+
 sed -i "s|Foreground false|Foreground true|g" /etc/clamav/clamd.conf
 cp /osixia/clamav/config/clamav-milter.conf /etc/clamav/clamav-milter.conf
 
 freshclam
 cp /osixia/clamav/cronjobs /etc/cron.d/clamav
-
-mkdir /var/spool/postfix/clamav
-chown clamav /var/spool/postfix/clamav
