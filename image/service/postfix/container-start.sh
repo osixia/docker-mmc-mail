@@ -29,12 +29,13 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 
     # ldap bind dn
     if [ -n "${LDAP_BIND_DN}" ]; then
+      echo "bind = yes" >> $i;
       echo "bind_dn = $LDAP_BIND_DN" >> $i;
-    fi
 
-    # ldap bind dn
-    if [ -n "${LDAP_BIND_PW}" ]; then
-      echo "bind_pw = $LDAP_BIND_PW" >> $i;
+      # ldap bind password
+      if [ -n "${LDAP_BIND_PW}" ]; then
+        echo "bind_pw = $LDAP_BIND_PW" >> $i;
+      fi
     fi
 
     # ldap tls config

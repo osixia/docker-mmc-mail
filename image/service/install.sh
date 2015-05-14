@@ -35,6 +35,8 @@ sievec /var/mail/sieve/default.sieve
 mkdir -p /var/run/clamav/
 chown clamav /var/run/clamav/
 
+sed -i "s|db.local.clamav.net|db.fr.clamav.net|g" /etc/clamav/freshclam.conf
+
 mkdir /var/spool/postfix/clamav
 chown clamav /var/spool/postfix/clamav
 
