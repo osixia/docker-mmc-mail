@@ -43,5 +43,5 @@ chown clamav /var/spool/postfix/clamav
 sed -i "s|Foreground false|Foreground true|g" /etc/clamav/clamd.conf
 cp /osixia/clamav/config/clamav-milter.conf /etc/clamav/clamav-milter.conf
 
-#freshclam
+freshclam  -v
 ln -s /osixia/clamav/cronjobs /etc/cron.d/clamav

@@ -7,6 +7,8 @@
 touch /etc/opendkim/KeyTable
 touch /etc/opendkim/SigningTable
 
+echo "$SERVER_NAME" >> /etc/opendkim/TrustedHosts
+
 # list mail domains
 
 LDAP_AUTH=""
@@ -29,9 +31,13 @@ do
   # the domain private key don't exists -> generate one
   if [ ! -f "/etc/opendkim/keys/$domain.key" ]; then
     opendkim-genkey --domain=$domain --append-domain --selector=$OPENDKIM_SELECTOR --directory /etc/opendkim/keys
+    mv /etc/opendkim/keys/mail.private /etc/opendkim/keys/$domain.key
+    mv /etc/opendkim/keys/mail.txt /etc/opendkim/keys/$domain.txt
   fi
 
   echo "*@$domain:$domain:/etc/opendkim/keys/$domain.key" >> /etc/opendkim/KeyTable
   echo "*@$domain $OPENDKIM_SELECTOR._domainkey.$domain." >> /etc/opendkim/SigningTable
+  echo "$domain" >> /etc/opendkim/TrustedHosts
+  echo "*.$domain" >> /etc/opendkim/TrustedHosts
 
 done

@@ -40,11 +40,11 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 
     # ldap tls config
     if [ "${LDAP_USE_TLS,,}" == "true" ]; then
-      echo "start_tls = yes" >> $i;
+      echo "start_tls = no" >> $i;
       echo "tls_ca_cert_file = /osixia/postfix/ssl/$LDAP_SSL_CA_CRT_FILENAME" >> $i;
       echo "tls_cert = /osixia/postfix/ssl/$LDAP_SSL_CRT_FILENAME" >> $i;
       echo "tls_key = /osixia/postfix/ssl/$LDAP_SSL_KEY_FILENAME" >> $i;
-      echo "tls_require_cert = yes" >> $i;
+      echo "tls_require_cert = no" >> $i;
     fi
   done
 
@@ -54,6 +54,7 @@ fi
 # set hosts
 echo "$SERVER_NAME" > /etc/hostname
 echo "127.0.0.1 localhost.localdomain" >> /etc/hosts
+echo "127.0.0.1 $SERVER_NAME" >> /etc/hosts
 
 # fix files permissions
 chown -R vmail:vmail /var/mail

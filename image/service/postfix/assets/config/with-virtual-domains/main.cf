@@ -135,7 +135,8 @@ smtpd_sender_restrictions =
 ## MILTERS DKIM/CLAMAV ##
 #########################
 
-#milter_protocol       = 6
-#milter_default_action = accept
+milter_protocol       = 6
+milter_default_action = accept
+smtpd_milters         = unix:/clamav/clamav-milter.ctl
 #smtpd_milters         = inet:localhost:12301 unix:/clamav/clamav-milter.ctl
 #non_smtpd_milters     = inet:localhost:12301

@@ -19,6 +19,15 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 	  fi
 	fi
 
+	# ldap tls config
+	if [ "${LDAP_USE_TLS,,}" == "true" ]; then
+		echo "tls = no" >> /etc/dovecot/dovecot-ldap.conf.ext
+		echo "tls_ca_cert_file = /osixia/postfix/ssl/$LDAP_SSL_CA_CRT_FILENAME" >> /etc/dovecot/dovecot-ldap.conf.ext
+		echo "tls_cert_file = /osixia/postfix/ssl/$LDAP_SSL_CRT_FILENAME" >> /etc/dovecot/dovecot-ldap.conf.ext
+		echo "tls_key_file = /osixia/postfix/ssl/$LDAP_SSL_KEY_FILENAME" >> /etc/dovecot/dovecot-ldap.conf.ext
+		echo "tls_require_cert = never" >> /etc/dovecot/dovecot-ldap.conf.ext
+	fi
+
 
 	# ssl
 	sed -i "s,/osixia/postfix/ssl/mailserver.crt,/osixia/postfix/ssl/${SSL_CRT_FILENAME},g" /etc/dovecot/conf.d/10-ssl.conf
