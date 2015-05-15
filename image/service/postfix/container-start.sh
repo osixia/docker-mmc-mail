@@ -40,7 +40,12 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 
     # ldap tls config
     if [ "${LDAP_USE_TLS,,}" == "true" ]; then
-      echo "start_tls = no" >> $i;
+
+      # ldap ssl config
+      # check certificat and key or create it
+      /sbin/ssl-kit "/osixia/postfix/ssl/$LDAP_SSL_CRT_FILENAME" "/osixia/postfix/ssl/$LDAP_SSL_KEY_FILENAME" --ca-crt=/osixia/postfix/ssl/$LDAP_SSL_CA_CRT_FILENAME
+
+      echo "start_tls = yes" >> $i;
       echo "tls_ca_cert_file = /osixia/postfix/ssl/$LDAP_SSL_CA_CRT_FILENAME" >> $i;
       echo "tls_cert = /osixia/postfix/ssl/$LDAP_SSL_CRT_FILENAME" >> $i;
       echo "tls_key = /osixia/postfix/ssl/$LDAP_SSL_KEY_FILENAME" >> $i;

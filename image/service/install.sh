@@ -21,6 +21,7 @@ echo "SOCKET=\"inet:12301@localhost\"" >> /etc/default/opendkim
 sed -i "s/ENABLED=0/ENABLED=1/g" /etc/default/spamassassin
 sed -i "s/CRON=0/CRON=1/g" /etc/default/spamassassin
 
+cp /osixia/spamassassin/config/* /etc/spamassassin/
 ln -s /osixia/spamassassin/cronjobs /etc/cron.d/spamassassin
 
 # dovecot / dovecot sieve
@@ -35,7 +36,7 @@ sievec /var/mail/sieve/default.sieve
 mkdir -p /var/run/clamav/
 chown clamav /var/run/clamav/
 
-sed -i "s|db.local.clamav.net|db.fr.clamav.net|g" /etc/clamav/freshclam.conf
+#sed -i "s|db.local.clamav.net|db.fr.clamav.net|g" /etc/clamav/freshclam.conf
 
 mkdir /var/spool/postfix/clamav
 chown clamav /var/spool/postfix/clamav
