@@ -6,3 +6,5 @@ user_attrs = mailbox=home
 user_filter = (&(objectClass=mailAccount)(mail=%u)(mailenable=OK))
 pass_attrs = mail=user,userPassword=password
 pass_filter = (&(objectClass=mailAccount)(mail=%u)(mailenable=OK))
+iterate_attrs = mail=user
+iterate_filter = (objectClass=mailAccount)

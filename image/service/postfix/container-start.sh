@@ -6,7 +6,7 @@ FIRST_START_DONE="/etc/docker-postfix-first-start-done"
 if [ ! -e "$FIRST_START_DONE" ]; then
 
   # copy config
-  cp /osixia/postfix/config/${POSTFIX_CONFIG}/* /etc/postfix/
+  ln -s -f /osixia/postfix/config/${POSTFIX_CONFIG}/* /etc/postfix/
 
   # set mailserver hostname
   sed -i "s/hostname.domain.tld/${SERVER_NAME}/g" /etc/postfix/main.cf
@@ -45,7 +45,7 @@ if [ ! -e "$FIRST_START_DONE" ]; then
       # check certificat and key or create it
       /sbin/ssl-kit "/osixia/postfix/ssl/$LDAP_SSL_CRT_FILENAME" "/osixia/postfix/ssl/$LDAP_SSL_KEY_FILENAME" --ca-crt=/osixia/postfix/ssl/$LDAP_SSL_CA_CRT_FILENAME
 
-      echo "start_tls = yes" >> $i;
+      echo "start_tls = no" >> $i;
       echo "tls_ca_cert_file = /osixia/postfix/ssl/$LDAP_SSL_CA_CRT_FILENAME" >> $i;
       echo "tls_cert = /osixia/postfix/ssl/$LDAP_SSL_CRT_FILENAME" >> $i;
       echo "tls_key = /osixia/postfix/ssl/$LDAP_SSL_KEY_FILENAME" >> $i;

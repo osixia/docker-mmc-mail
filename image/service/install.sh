@@ -4,13 +4,13 @@
 groupadd -g 5000 vmail && useradd -g vmail -u 5000 vmail -d /var/mail
 
 # backup default config files
-cp /etc/postfix/main.cf /etc/postfix/main.cf.bak
-cp /etc/postfix/master.cf /etc/postfix/master.cf.bak
-cp /osixia/postfix/config/common/* /etc/postfix/
+mv /etc/postfix/main.cf /etc/postfix/main.cf.bak
+mv /etc/postfix/master.cf /etc/postfix/master.cf.bak
+ln -s -f /osixia/postfix/config/common/* /etc/postfix/
 
 # opendkim
 mkdir -p /etc/opendkim/keys
-cp /osixia/opendkim/config/opendkim.conf /etc/opendkim.conf
+ln -s -f /osixia/opendkim/config/opendkim.conf /etc/opendkim.conf
 ln -s /osixia/opendkim/config/TrustedHosts /etc/opendkim/TrustedHosts
 
 ln -s /osixia/opendkim/keys/* /etc/opendkim/keys
@@ -21,11 +21,13 @@ echo "SOCKET=\"inet:12301@localhost\"" >> /etc/default/opendkim
 sed -i "s/ENABLED=0/ENABLED=1/g" /etc/default/spamassassin
 sed -i "s/CRON=0/CRON=1/g" /etc/default/spamassassin
 
-cp /osixia/spamassassin/config/* /etc/spamassassin/
+ln -s -f /osixia/spamassassin/config/* /etc/spamassassin/
 ln -s /osixia/spamassassin/cronjobs /etc/cron.d/spamassassin
 
 # dovecot / dovecot sieve
-cp -R /osixia/dovecot/config/* /etc/dovecot
+ln -s -f /osixia/dovecot/config/dovecot.conf /etc/dovecot/dovecot.conf
+ln -s -f /osixia/dovecot/config/dovecot-ldap.conf.ext /etc/dovecot/dovecot-ldap.conf.ext
+ln -s -f /osixia/dovecot/config/conf.d/* /etc/dovecot/conf.d
 
 mkdir /var/mail/sieve/
 ln -s /osixia/dovecot/sieve/default.sieve /var/mail/sieve/default.sieve
@@ -42,7 +44,7 @@ mkdir /var/spool/postfix/clamav
 chown clamav /var/spool/postfix/clamav
 
 sed -i "s|Foreground false|Foreground true|g" /etc/clamav/clamd.conf
-cp /osixia/clamav/config/clamav-milter.conf /etc/clamav/clamav-milter.conf
+ln -s -f /osixia/clamav/config/clamav-milter.conf /etc/clamav/clamav-milter.conf
 
 freshclam  -v
 ln -s /osixia/clamav/cronjobs /etc/cron.d/clamav
