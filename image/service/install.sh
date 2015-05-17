@@ -23,6 +23,7 @@ sed -i "s/CRON=0/CRON=1/g" /etc/default/spamassassin
 
 ln -s -f /osixia/spamassassin/config/* /etc/spamassassin/
 ln -s /osixia/spamassassin/cronjobs /etc/cron.d/spamassassin
+chmod 600 /osixia/spamassassin/cronjobs
 
 # dovecot / dovecot sieve
 ln -s -f /osixia/dovecot/config/dovecot.conf /etc/dovecot/dovecot.conf
@@ -33,6 +34,13 @@ mkdir /var/mail/sieve/
 ln -s /osixia/dovecot/sieve/default.sieve /var/mail/sieve/default.sieve
 chown -R vmail:vmail /var/mail/sieve
 sievec /var/mail/sieve/default.sieve
+
+# dovecot backup
+mkdir -p /backup/mail/
+chown vmail:vmail /backup/mail/
+chmod 02770 /var/mail
+#ln -s /osixia/dovecot/cronjobs /etc/cron.d/dovecot
+chmod 600 /osixia/dovecot/cronjobs
 
 # clamav
 mkdir -p /var/run/clamav/
@@ -48,3 +56,4 @@ ln -s -f /osixia/clamav/config/clamav-milter.conf /etc/clamav/clamav-milter.conf
 
 freshclam  -v
 ln -s /osixia/clamav/cronjobs /etc/cron.d/clamav
+chmod 600 /osixia/clamav/cronjobs

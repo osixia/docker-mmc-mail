@@ -1,0 +1,2 @@
+# backup mails every hours
+0 * * * * root doveadm backup -A maildir:/backup/mail/

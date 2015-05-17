@@ -1,1 +1,1 @@
-15 * * * * /usr/bin/freshclam --quiet
+10 * * * * root /usr/bin/freshclam --quiet
