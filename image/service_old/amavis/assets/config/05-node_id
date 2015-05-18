@@ -1,6 +1,0 @@
-use strict;
-
-$myhostname = "mail.example.com";
-
-1;  # ensure a defined return
-
