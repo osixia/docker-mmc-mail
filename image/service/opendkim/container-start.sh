@@ -44,9 +44,11 @@ do
     mv /etc/opendkim/keys/mail.txt /etc/opendkim/keys/$domain.txt
   fi
 
-  echo "*@$domain:$domain:/etc/opendkim/keys/$domain.key" >> /etc/opendkim/KeyTable
+  echo "$OPENDKIM_SELECTOR._domainkey.$domain. $domain:$OPENDKIM_SELECTOR:/etc/opendkim/keys/$domain.key" >> /etc/opendkim/KeyTable
   echo "*@$domain $OPENDKIM_SELECTOR._domainkey.$domain." >> /etc/opendkim/SigningTable
   echo "$domain" >> /etc/opendkim/TrustedHosts
   echo "*.$domain" >> /etc/opendkim/TrustedHosts
 
 done
+
+chown opendkim:opendkim -R /etc/opendkim/keys/
