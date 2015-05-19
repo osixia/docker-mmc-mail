@@ -6,7 +6,7 @@ groupadd -g 5000 vmail && useradd -g vmail -u 5000 vmail -d /var/mail
 # backup default config files
 mv /etc/postfix/main.cf /etc/postfix/main.cf.bak
 mv /etc/postfix/master.cf /etc/postfix/master.cf.bak
-ln -s -f /osixia/postfix/config/common/* /etc/postfix/
+ln -s -f /osixia/postfix/config/* /etc/postfix/
 
 # opendkim
 mkdir -p /etc/opendkim/keys

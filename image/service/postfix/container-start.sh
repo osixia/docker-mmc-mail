@@ -5,12 +5,8 @@ FIRST_START_DONE="/etc/docker-postfix-first-start-done"
 # container first start
 if [ ! -e "$FIRST_START_DONE" ]; then
 
-  # copy config
-  ln -s -f /osixia/postfix/config/${POSTFIX_CONFIG}/* /etc/postfix/
-
   # set mailserver hostname
   sed -i "s/hostname.domain.tld/${SERVER_NAME}/g" /etc/postfix/main.cf
-
 
   # postfix ssl config
   # check certificat and key or create it

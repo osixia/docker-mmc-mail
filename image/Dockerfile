@@ -8,7 +8,7 @@ CMD ["/sbin/my_init"]
 RUN apt-get update && /sbin/enable-service ssl-kit \
 	&& LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 	postfix postfix-ldap  \
-	dovecot-core dovecot-imapd dovecot-lmtpd dovecot-ldap dovecot-sieve dovecot-managesieved \
+	dovecot-core dovecot-imapd dovecot-lmtpd dovecot-pop3d dovecot-ldap dovecot-sieve dovecot-managesieved \
 	opendkim opendkim-tools ldap-utils\
 	spamassassin spamc \
 	clamav clamav-base clamav-freshclam clamav-daemon clamav-milter \
@@ -42,5 +42,5 @@ ADD service/spamassassin/daemon.sh /etc/service/spamassassin/run
 # Set wordpress data directory in a data volume
 VOLUME ["/var/mail"]
 
-# Expose imap and smtp ports
-EXPOSE 25 143 587
+# Expose smtp, pop3, imap and managesieve ports
+EXPOSE 25 110 143 587 4190
