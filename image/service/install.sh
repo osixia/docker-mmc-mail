@@ -9,11 +9,9 @@ mv /etc/postfix/master.cf /etc/postfix/master.cf.bak
 ln -s -f /osixia/postfix/config/* /etc/postfix/
 
 # opendkim
-mkdir -p /etc/opendkim/keys
+mkdir -p /osixia/opendkim/keys
 ln -s -f /osixia/opendkim/config/opendkim.conf /etc/opendkim.conf
 ln -s /osixia/opendkim/config/TrustedHosts /etc/opendkim/TrustedHosts
-
-ln -s /osixia/opendkim/keys/* /etc/opendkim/keys
 
 echo "SOCKET=\"inet:12301@localhost\"" >> /etc/default/opendkim
 
