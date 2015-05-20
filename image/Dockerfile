@@ -42,5 +42,5 @@ ADD service/spamassassin/daemon.sh /etc/service/spamassassin/run
 # Set wordpress data directory in a data volume
 VOLUME ["/var/mail"]
 
-# Expose smtp, pop3, imap and managesieve ports
+# Expose smtp, pop3, imap, smtp (submission) and managesieve ports
 EXPOSE 25 110 143 587 4190

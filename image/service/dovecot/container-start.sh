@@ -31,6 +31,7 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 	# ssl
 	sed -i "s,/osixia/postfix/ssl/mailserver.crt,/osixia/postfix/ssl/${SSL_CRT_FILENAME},g" /etc/dovecot/conf.d/10-ssl.conf
   sed -i "s,/osixia/postfix/ssl/mailserver.key,/osixia/postfix/ssl/${SSL_KEY_FILENAME},g" /etc/dovecot/conf.d/10-ssl.conf
+	sed -i "s,/osixia/postfix/ssl/ca.crt,/osixia/postfix/ssl/${SSL_CA_CRT_FILENAME},g" /etc/dovecot/conf.d/10-ssl.conf
 
   touch $FIRST_START_DONE
 fi

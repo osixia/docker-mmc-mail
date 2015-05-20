@@ -58,4 +58,6 @@ do
 
 done
 
+rm -f $HOST_FILE
+
 chown opendkim:opendkim -R /etc/opendkim/keys/
