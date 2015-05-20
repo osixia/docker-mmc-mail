@@ -33,14 +33,6 @@ ln -s -f /osixia/dovecot/config/conf.d/* /etc/dovecot/conf.d
 mkdir /var/mail/sieve/
 ln -s /osixia/dovecot/sieve/default.sieve /var/mail/sieve/default.sieve
 chown -R vmail:vmail /var/mail/sieve
-sievec /var/mail/sieve/default.sieve
-
-# dovecot backup
-mkdir -p /backup/mail/
-chown vmail:vmail /backup/mail/
-chmod 02770 /var/mail
-#ln -s /osixia/dovecot/cronjobs /etc/cron.d/dovecot
-chmod 600 /osixia/dovecot/cronjobs
 
 # clamav
 mkdir -p /var/run/clamav/

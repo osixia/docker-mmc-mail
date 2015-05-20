@@ -60,4 +60,5 @@ done
 
 rm -f $HOST_FILE
 
+chmod 600 /etc/opendkim/keys/
 chown opendkim:opendkim -R /etc/opendkim/keys/

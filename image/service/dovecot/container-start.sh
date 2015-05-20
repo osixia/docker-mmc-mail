@@ -36,6 +36,8 @@ if [ ! -e "$FIRST_START_DONE" ]; then
   touch $FIRST_START_DONE
 fi
 
+sievec /var/mail/sieve/default.sieve
+
 exec /usr/sbin/dovecot
 
 exit 0
