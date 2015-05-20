@@ -27,6 +27,7 @@ chmod 600 /osixia/spamassassin/cronjobs
 ln -s -f /osixia/dovecot/config/dovecot.conf /etc/dovecot/dovecot.conf
 ln -s -f /osixia/dovecot/config/dovecot-ldap.conf.ext /etc/dovecot/dovecot-ldap.conf.ext
 ln -s -f /osixia/dovecot/config/conf.d/* /etc/dovecot/conf.d
+rm /etc/dovecot/conf.d/90-replication.conf
 
 mkdir /var/mail/sieve/
 ln -s /osixia/dovecot/sieve/default.sieve /var/mail/sieve/default.sieve

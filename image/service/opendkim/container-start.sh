@@ -62,5 +62,5 @@ rm -f $HOST_FILE
 
 chmod 755 /osixia/opendkim/keys
 chmod 600 /osixia/opendkim/keys/*
-chown opendkim:opendkim -R /osixia/opendkim
+chown opendkim:opendkim -R /osixia/opendkim/keys
 chown opendkim:opendkim -R /etc/opendkim
