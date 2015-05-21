@@ -6,8 +6,8 @@
 for i in $@
 do
 
-  if [ -f /osixia/dovecot/config/config-available/$i/container-start.sh ]; then
-    /osixia/dovecot/config/config-available/$i/container-start.sh
+  if [ -f /osixia/dovecot/config/config-available/$i/enable.sh ]; then
+    /osixia/dovecot/config/config-available/$i/enable.sh
   else
     echo "enable-config: dovecot config $i not found."
     exit 1

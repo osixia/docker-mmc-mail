@@ -10,6 +10,7 @@ ln -s -f /osixia/postfix/config/* /etc/postfix/
 
 # opendkim
 mkdir -p /osixia/opendkim/keys
+mkdir -p /etc/opendkim
 ln -s -f /osixia/opendkim/config/opendkim.conf /etc/opendkim.conf
 ln -s /osixia/opendkim/config/TrustedHosts /etc/opendkim/TrustedHosts
 
@@ -27,7 +28,6 @@ chmod 600 /osixia/spamassassin/cronjobs
 ln -s -f /osixia/dovecot/config/dovecot.conf /etc/dovecot/dovecot.conf
 ln -s -f /osixia/dovecot/config/dovecot-ldap.conf.ext /etc/dovecot/dovecot-ldap.conf.ext
 ln -s -f /osixia/dovecot/config/conf.d/* /etc/dovecot/conf.d
-rm /etc/dovecot/conf.d/90-replication.conf
 
 mkdir /var/mail/sieve/
 ln -s /osixia/dovecot/sieve/default.sieve /var/mail/sieve/default.sieve

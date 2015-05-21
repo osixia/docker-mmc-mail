@@ -33,6 +33,10 @@ if [ ! -e "$FIRST_START_DONE" ]; then
   sed -i "s,/osixia/postfix/ssl/mailserver.key,/osixia/postfix/ssl/${SSL_KEY_FILENAME},g" /etc/dovecot/conf.d/10-ssl.conf
 	sed -i "s,/osixia/postfix/ssl/ca.crt,/osixia/postfix/ssl/${SSL_CA_CRT_FILENAME},g" /etc/dovecot/conf.d/10-ssl.conf
 
+	if [ "${ENABLE_REPLICATION,,}" == "true" ]; then
+			/osixia/dovecot/config/enable-config replication
+	fi
+
   touch $FIRST_START_DONE
 fi
 
