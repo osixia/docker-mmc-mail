@@ -12,4 +12,5 @@ do
     echo "enable-config: dovecot config $i not found."
     exit 1
   fi
+  
 done
