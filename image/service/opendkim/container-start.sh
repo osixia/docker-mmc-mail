@@ -39,19 +39,19 @@ do
   echo "Domain: $domain"
 
   # the domain private key doesn't exists -> generate one
-  if [ ! -f "/osixia/opendkim/keys/$domain.key" ]; then
+  if [ ! -f "/osixia/service/opendkim/assets/keys/$domain.key" ]; then
 
     echo "-> key not found, generating one"
-    opendkim-genkey --domain=$domain --append-domain --selector=$OPENDKIM_SELECTOR --directory /osixia/opendkim/keys
+    opendkim-genkey --domain=$domain --append-domain --selector=$OPENDKIM_SELECTOR --directory /osixia/service/opendkim/assets/keys
 
     echo "-> add the following DNS entry:"
-    cat /osixia/opendkim/keys/mail.txt
+    cat /osixia/service/opendkim/assets/keys/mail.txt
 
-    mv /osixia/opendkim/keys/mail.private /osixia/opendkim/keys/$domain.key
-    mv /osixia/opendkim/keys/mail.txt /osixia/opendkim/keys/$domain.txt
+    mv /osixia/service/opendkim/assets/keys/mail.private /osixia/service/opendkim/assets/keys/$domain.key
+    mv /osixia/service/opendkim/assets/keys/mail.txt /osixia/service/opendkim/assets/keys/$domain.txt
   fi
 
-  echo "$OPENDKIM_SELECTOR._domainkey.$domain. $domain:$OPENDKIM_SELECTOR:/osixia/opendkim/keys/$domain.key" >> /etc/opendkim/KeyTable
+  echo "$OPENDKIM_SELECTOR._domainkey.$domain. $domain:$OPENDKIM_SELECTOR:/osixia/service/opendkim/assets/keys/$domain.key" >> /etc/opendkim/KeyTable
   echo "*@$domain $OPENDKIM_SELECTOR._domainkey.$domain." >> /etc/opendkim/SigningTable
   echo "$domain" >> /etc/opendkim/TrustedHosts
   echo "*.$domain" >> /etc/opendkim/TrustedHosts
@@ -60,7 +60,7 @@ done
 
 rm -f $HOST_FILE
 
-chmod 755 /osixia/opendkim/keys
-chmod 600 /osixia/opendkim/keys/*
-chown opendkim:opendkim -R /osixia/opendkim/keys
+chmod 755 /osixia/service/opendkim/assets/keys
+chmod 600 /osixia/service/opendkim/assets/keys/*
+chown opendkim:opendkim -R /osixia/service/opendkim/assets/keys
 chown opendkim:opendkim -R /etc/opendkim
