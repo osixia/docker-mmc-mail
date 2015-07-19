@@ -6,7 +6,7 @@ FIRST_START_DONE="/etc/docker-postfix-first-start-done"
 if [ ! -e "$FIRST_START_DONE" ]; then
 
   # set mailserver hostname
-  sed -i "s/hostname.domain.tld/${SERVER_NAME}/g" /etc/postfix/main.cf
+  sed -i "s/hostname.domain.tld/${HOSTNAME}/g" /etc/postfix/main.cf
 
   # postfix ssl config
   # check certificat and key or create it
@@ -53,9 +53,7 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 fi
 
 # set hosts
-echo "$SERVER_NAME" > /etc/hostname
 echo "127.0.0.1 localhost.localdomain" >> /etc/hosts
-echo "127.0.0.1 $SERVER_NAME" >> /etc/hosts
 
 # fix files permissions
 chown -R vmail:vmail /var/mail

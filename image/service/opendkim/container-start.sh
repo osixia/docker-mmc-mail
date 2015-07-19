@@ -5,7 +5,7 @@ FIRST_START_DONE="/etc/docker-opendkim-first-start-done"
 # container first start
 if [ ! -e "$FIRST_START_DONE" ]; then
 
-  echo "$SERVER_NAME" >> /etc/opendkim/TrustedHosts
+  echo "$HOSTNAME" >> /etc/opendkim/TrustedHosts
 
   touch $FIRST_START_DONE
 fi
