@@ -5,8 +5,8 @@ MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 CMD ["/osixia/tool/run"]
 
 # Install postfix, dovecot, opendkim, clamav, spamassassin
-RUN apt-get update && /sbin/install-multiple-process-stack \
-  && /sbin/install-service-available ssl-helper-openssl \
+RUN apt-get update && /sbin/add-multiple-process-stack \
+  && /sbin/add-service-available ssl-helper-openssl \
 	&& LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 	postfix postfix-ldap  \
 	dovecot-core dovecot-imapd dovecot-lmtpd dovecot-pop3d dovecot-ldap dovecot-sieve dovecot-managesieved \
