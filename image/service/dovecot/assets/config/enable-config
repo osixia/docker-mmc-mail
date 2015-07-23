@@ -1,13 +1,13 @@
 #!/bin/bash -e
 
 # Usage :
-# /osixia/service/dovecot/assets/config/enable-config [config1] [config2] ...
+# /container/service/dovecot/assets/config/enable-config [config1] [config2] ...
 
 for i in $@
 do
 
-  if [ -f /osixia/service/dovecot/assets/config/config-available/$i/enable.sh ]; then
-    /osixia/service/dovecot/assets/config/config-available/$i/enable.sh
+  if [ -f /container/service/dovecot/assets/config/config-available/$i/enable.sh ]; then
+    /container/service/dovecot/assets/config/config-available/$i/enable.sh
   else
     echo "enable-config: dovecot config $i not found."
     exit 1

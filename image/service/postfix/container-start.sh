@@ -10,12 +10,12 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 
   # postfix ssl config
   # check certificat and key or create it
-  /sbin/ssl-helper "/osixia/service/postfix/assets/ssl/$SSL_CRT_FILENAME" "/osixia/service/postfix/assets/ssl/$SSL_KEY_FILENAME" --ca-crt=/osixia/service/postfix/assets/ssl/$SSL_CA_CRT_FILENAME
+  /sbin/ssl-helper "/container/service/postfix/assets/ssl/$SSL_CRT_FILENAME" "/container/service/postfix/assets/ssl/$SSL_KEY_FILENAME" --ca-crt=/container/service/postfix/assets/ssl/$SSL_CA_CRT_FILENAME
 
   # adapt tls ldif
-  sed -i "s,/osixia/service/postfix/assets/ssl/ca.crt,/osixia/service/postfix/assets/ssl/${SSL_CA_CRT_FILENAME},g" /etc/postfix/main.cf
-  sed -i "s,/osixia/service/postfix/assets/ssl/mailserver.crt,/osixia/service/postfix/assets/ssl/${SSL_CRT_FILENAME},g" /etc/postfix/main.cf
-  sed -i "s,/osixia/service/postfix/assets/ssl/mailserver.key,/osixia/service/postfix/assets/ssl/${SSL_KEY_FILENAME},g" /etc/postfix/main.cf
+  sed -i "s,/container/service/postfix/assets/ssl/ca.crt,/container/service/postfix/assets/ssl/${SSL_CA_CRT_FILENAME},g" /etc/postfix/main.cf
+  sed -i "s,/container/service/postfix/assets/ssl/mailserver.crt,/container/service/postfix/assets/ssl/${SSL_CRT_FILENAME},g" /etc/postfix/main.cf
+  sed -i "s,/container/service/postfix/assets/ssl/mailserver.key,/container/service/postfix/assets/ssl/${SSL_KEY_FILENAME},g" /etc/postfix/main.cf
 
   # ldap config
   for i in `ls /etc/postfix/ldap-*.cf`;
@@ -39,12 +39,12 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 
       # ldap ssl config
       # check certificat and key or create it
-      /sbin/ssl-helper "/osixia/service/postfix/assets/ssl/$LDAP_SSL_CRT_FILENAME" "/osixia/service/postfix/assets/ssl/$LDAP_SSL_KEY_FILENAME" --ca-crt=/osixia/service/postfix/assets/ssl/$LDAP_SSL_CA_CRT_FILENAME
+      /sbin/ssl-helper "/container/service/postfix/assets/ssl/$LDAP_SSL_CRT_FILENAME" "/container/service/postfix/assets/ssl/$LDAP_SSL_KEY_FILENAME" --ca-crt=/container/service/postfix/assets/ssl/$LDAP_SSL_CA_CRT_FILENAME
 
       echo "start_tls = no" >> $i;
-      echo "tls_ca_cert_file = /osixia/service/postfix/assets/ssl/$LDAP_SSL_CA_CRT_FILENAME" >> $i;
-      echo "tls_cert = /osixia/service/postfix/assets/ssl/$LDAP_SSL_CRT_FILENAME" >> $i;
-      echo "tls_key = /osixia/service/postfix/assets/ssl/$LDAP_SSL_KEY_FILENAME" >> $i;
+      echo "tls_ca_cert_file = /container/service/postfix/assets/ssl/$LDAP_SSL_CA_CRT_FILENAME" >> $i;
+      echo "tls_cert = /container/service/postfix/assets/ssl/$LDAP_SSL_CRT_FILENAME" >> $i;
+      echo "tls_key = /container/service/postfix/assets/ssl/$LDAP_SSL_KEY_FILENAME" >> $i;
       echo "tls_require_cert = no" >> $i;
     fi
   done
