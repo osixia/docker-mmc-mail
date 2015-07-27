@@ -6,34 +6,34 @@ FIRST_START_DONE="/etc/docker-dovecot-first-start-done"
 if [ ! -e "$FIRST_START_DONE" ]; then
 
 	# ldap
-	sed -i "s,ldap://ldap.example.org:389,$LDAP_URL," /etc/dovecot/dovecot-ldap.conf.ext
-	sed -i "s/dc=mandriva,dc=com/$LDAP_BASE_DN/" /etc/dovecot/dovecot-ldap.conf.ext
+	sed -i "s,ldap://ldap.example.org:389,$MMC_MAIL_LDAP_URL," /etc/dovecot/dovecot-ldap.conf.ext
+	sed -i "s/dc=mandriva,dc=com/$MMC_MAIL_LDAP_BASE_DN/" /etc/dovecot/dovecot-ldap.conf.ext
 
 	# ldap bind dn
-	if [ -n "${LDAP_BIND_DN}" ]; then
-	  echo "dn = $LDAP_BIND_DN" >> /etc/dovecot/dovecot-ldap.conf.ext
+	if [ -n "${MMC_MAIL_LDAP_BIND_DN}" ]; then
+	  echo "dn = $MMC_MAIL_LDAP_BIND_DN" >> /etc/dovecot/dovecot-ldap.conf.ext
 
 		# 	ldap bind password
-	  if [ -n "${LDAP_BIND_PW}" ]; then
-	    echo "dnpass = $LDAP_BIND_PW" >> /etc/dovecot/dovecot-ldap.conf.ext
+	  if [ -n "${MMC_MAIL_LDAP_BIND_PW}" ]; then
+	    echo "dnpass = $MMC_MAIL_LDAP_BIND_PW" >> /etc/dovecot/dovecot-ldap.conf.ext
 	  fi
 	fi
 
 	# ldap tls config
-	if [ "${LDAP_CLIENT_USE_TLS,,}" == "true" ]; then
+	if [ "${MMC_MAIL_LDAP_CLIENT_TLS,,}" == "true" ]; then
 		echo "tls = no" >> /etc/dovecot/dovecot-ldap.conf.ext
-		echo "tls_ca_cert_file = /container/service/postfix/assets/ssl/$LDAP_CLIENT_TLS_CA_CRT_FILENAME" >> /etc/dovecot/dovecot-ldap.conf.ext
-		echo "tls_cert_file = /container/service/postfix/assets/ssl/$LDAP_CLIENT_TLS_CRT_FILENAME" >> /etc/dovecot/dovecot-ldap.conf.ext
-		echo "tls_key_file = /container/service/postfix/assets/ssl/$LDAP_CLIENT_TLS_KEY_FILENAME" >> /etc/dovecot/dovecot-ldap.conf.ext
+		echo "tls_ca_cert_file = /container/service/postfix/assets/ldap-client/certs/$MMC_MAIL_LDAP_CLIENT_TLS_CA_CRT_FILENAME" >> /etc/dovecot/dovecot-ldap.conf.ext
+		echo "tls_cert_file = /container/service/postfix/assets/ldap-client/certs/$MMC_MAIL_LDAP_CLIENT_TLS_CRT_FILENAME" >> /etc/dovecot/dovecot-ldap.conf.ext
+		echo "tls_key_file = /container/service/postfix/assets/ldap-client/certs/$MMC_MAIL_LDAP_CLIENT_TLS_KEY_FILENAME" >> /etc/dovecot/dovecot-ldap.conf.ext
 	fi
 
 
 	# ssl
-	sed -i "s,/container/service/postfix/assets/ssl/mailserver.crt,/container/service/postfix/assets/ssl/${SSL_CRT_FILENAME},g" /etc/dovecot/conf.d/10-ssl.conf
-  sed -i "s,/container/service/postfix/assets/ssl/mailserver.key,/container/service/postfix/assets/ssl/${SSL_KEY_FILENAME},g" /etc/dovecot/conf.d/10-ssl.conf
-	sed -i "s,/container/service/postfix/assets/ssl/ca.crt,/container/service/postfix/assets/ssl/${SSL_CA_CRT_FILENAME},g" /etc/dovecot/conf.d/10-ssl.conf
+	sed -i "s,/container/service/postfix/assets/certs/mailserver.crt,/container/service/postfix/assets/certs/${MMC_MAIL_SSL_CRT_FILENAME},g" /etc/dovecot/conf.d/10-ssl.conf
+  sed -i "s,/container/service/postfix/assets/certs/mailserver.key,/container/service/postfix/assets/certs/${MMC_MAIL_SSL_KEY_FILENAME},g" /etc/dovecot/conf.d/10-ssl.conf
+	sed -i "s,/container/service/postfix/assets/certs/ca.crt,/container/service/postfix/assets/certs/${MMC_MAIL_SSL_CA_CRT_FILENAME},g" /etc/dovecot/conf.d/10-ssl.conf
 
-	if [ "${ENABLE_REPLICATION,,}" == "true" ]; then
+	if [ "${MMC_MAIL_REPLICATION,,}" == "true" ]; then
 			/container/service/dovecot/assets/config/enable-config replication
 	fi
 

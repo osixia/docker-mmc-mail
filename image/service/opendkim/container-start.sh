@@ -19,18 +19,18 @@ touch /etc/opendkim/SigningTable
 
 # list mail domains
 LDAP_AUTH=""
-if [ -n "${LDAP_BIND_DN}" ]; then
-  LDAP_AUTH="-D ${LDAP_BIND_DN}"
+if [ -n "${MMC_MAIL_LDAP_BIND_DN}" ]; then
+  LDAP_AUTH="-D ${MMC_MAIL_LDAP_BIND_DN}"
 fi
-if [ -n "${LDAP_BIND_PW}" ]; then
-  LDAP_AUTH="$LDAP_AUTH -w ${LDAP_BIND_PW}"
+if [ -n "${MMC_MAIL_LDAP_BIND_PW}" ]; then
+  LDAP_AUTH="$LDAP_AUTH -w ${MMC_MAIL_LDAP_BIND_PW}"
 fi
 
 # better way ?
 HOST_FILE="ldap-hosts"
 touch $HOST_FILE
 
-ldapsearch -x -H ${LDAP_URL} -b ${LDAP_BASE_DN} "(&(objectClass=mailDomain)(virtualdomain=*))" ${LDAP_AUTH} | grep "virtualdomain:" > ${HOST_FILE} || true
+ldapsearch -x -H ${MMC_MAIL_LDAP_URL} -b ${MMC_MAIL_LDAP_BASE_DN} "(&(objectClass=mailDomain)(virtualdomain=*))" ${LDAP_AUTH} | grep "virtualdomain:" > ${HOST_FILE} || true
 sed -i "s/virtualdomain: //g" $HOST_FILE
 
 for domain in $(cat $HOST_FILE);
@@ -42,7 +42,7 @@ do
   if [ ! -f "/container/service/opendkim/assets/keys/$domain.key" ]; then
 
     echo "-> key not found, generating one"
-    opendkim-genkey --domain=$domain --append-domain --selector=$OPENDKIM_SELECTOR --directory /container/service/opendkim/assets/keys
+    opendkim-genkey --domain=$domain --append-domain --selector=$MMC_MAIL_OPENDKIM_SELECTOR --directory /container/service/opendkim/assets/keys
 
     echo "-> add the following DNS entry:"
     cat /container/service/opendkim/assets/keys/mail.txt
@@ -51,8 +51,8 @@ do
     mv /container/service/opendkim/assets/keys/mail.txt /container/service/opendkim/assets/keys/$domain.txt
   fi
 
-  echo "$OPENDKIM_SELECTOR._domainkey.$domain. $domain:$OPENDKIM_SELECTOR:/container/service/opendkim/assets/keys/$domain.key" >> /etc/opendkim/KeyTable
-  echo "*@$domain $OPENDKIM_SELECTOR._domainkey.$domain." >> /etc/opendkim/SigningTable
+  echo "$MMC_MAIL_OPENDKIM_SELECTOR._domainkey.$domain. $domain:$MMC_MAIL_OPENDKIM_SELECTOR:/container/service/opendkim/assets/keys/$domain.key" >> /etc/opendkim/KeyTable
+  echo "*@$domain $MMC_MAIL_OPENDKIM_SELECTOR._domainkey.$domain." >> /etc/opendkim/SigningTable
   echo "$domain" >> /etc/opendkim/TrustedHosts
   echo "*.$domain" >> /etc/opendkim/TrustedHosts
 
