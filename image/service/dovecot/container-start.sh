@@ -20,11 +20,11 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 	fi
 
 	# ldap tls config
-	if [ "${LDAP_USE_TLS,,}" == "true" ]; then
+	if [ "${LDAP_CLIENT_USE_TLS,,}" == "true" ]; then
 		echo "tls = no" >> /etc/dovecot/dovecot-ldap.conf.ext
-		echo "tls_ca_cert_file = /container/service/postfix/assets/ssl/$LDAP_SSL_CA_CRT_FILENAME" >> /etc/dovecot/dovecot-ldap.conf.ext
-		echo "tls_cert_file = /container/service/postfix/assets/ssl/$LDAP_SSL_CRT_FILENAME" >> /etc/dovecot/dovecot-ldap.conf.ext
-		echo "tls_key_file = /container/service/postfix/assets/ssl/$LDAP_SSL_KEY_FILENAME" >> /etc/dovecot/dovecot-ldap.conf.ext
+		echo "tls_ca_cert_file = /container/service/postfix/assets/ssl/$LDAP_CLIENT_TLS_CA_CRT_FILENAME" >> /etc/dovecot/dovecot-ldap.conf.ext
+		echo "tls_cert_file = /container/service/postfix/assets/ssl/$LDAP_CLIENT_TLS_CRT_FILENAME" >> /etc/dovecot/dovecot-ldap.conf.ext
+		echo "tls_key_file = /container/service/postfix/assets/ssl/$LDAP_CLIENT_TLS_KEY_FILENAME" >> /etc/dovecot/dovecot-ldap.conf.ext
 	fi
 
 

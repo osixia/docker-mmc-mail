@@ -35,16 +35,16 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     fi
 
     # ldap tls config
-    if [ "${LDAP_USE_TLS,,}" == "true" ]; then
+    if [ "${LDAP_CLIENT_USE_TLS,,}" == "true" ]; then
 
       # ldap ssl config
       # check certificat and key or create it
-      /sbin/ssl-helper "/container/service/postfix/assets/ssl/$LDAP_SSL_CRT_FILENAME" "/container/service/postfix/assets/ssl/$LDAP_SSL_KEY_FILENAME" --ca-crt=/container/service/postfix/assets/ssl/$LDAP_SSL_CA_CRT_FILENAME
+      /sbin/ssl-helper "/container/service/postfix/assets/ssl/$LDAP_CLIENT_TLS_CRT_FILENAME" "/container/service/postfix/assets/ssl/$LDAP_CLIENT_TLS_KEY_FILENAME" --ca-crt=/container/service/postfix/assets/ssl/$LDAP_CLIENT_TLS_CA_CRT_FILENAME
 
       echo "start_tls = no" >> $i;
-      echo "tls_ca_cert_file = /container/service/postfix/assets/ssl/$LDAP_SSL_CA_CRT_FILENAME" >> $i;
-      echo "tls_cert = /container/service/postfix/assets/ssl/$LDAP_SSL_CRT_FILENAME" >> $i;
-      echo "tls_key = /container/service/postfix/assets/ssl/$LDAP_SSL_KEY_FILENAME" >> $i;
+      echo "tls_ca_cert_file = /container/service/postfix/assets/ssl/$LDAP_CLIENT_TLS_CA_CRT_FILENAME" >> $i;
+      echo "tls_cert = /container/service/postfix/assets/ssl/$LDAP_CLIENT_TLS_CRT_FILENAME" >> $i;
+      echo "tls_key = /container/service/postfix/assets/ssl/$LDAP_CLIENT_TLS_KEY_FILENAME" >> $i;
       echo "tls_require_cert = no" >> $i;
     fi
   done
