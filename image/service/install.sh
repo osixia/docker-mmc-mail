@@ -14,7 +14,7 @@ mkdir -p /etc/opendkim
 ln -s -f /container/service/opendkim/assets/config/opendkim.conf /etc/opendkim.conf
 ln -s /container/service/opendkim/assets/config/TrustedHosts /etc/opendkim/TrustedHosts
 
-echo "SOCKET=\"inet:12301@localhost\"" >> /etc/default/opendkim
+echo "SOCKET=\"inet:12301@127.0.0.1\"" >> /etc/default/opendkim
 
 # spamassassin
 sed -i "s/ENABLED=0/ENABLED=1/g" /etc/default/spamassassin

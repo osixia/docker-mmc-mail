@@ -1,12 +1,10 @@
-#!/bin/sh
- exec 1>&2
+#!/bin/bash
 
- daemon_directory=/usr/lib/postfix \
- command_directory=/usr/sbin \
- config_directory=/etc/postfix \
- queue_directory=/var/spool/postfix \
- mail_owner=postfix \
- setgid_group=postdrop \
-   /etc/postfix/postfix-script check || exit 1
+command_directory=`postconf -h command_directory`
+daemon_directory=`$command_directory/postconf -h daemon_directory`
 
- exec /usr/lib/postfix/master
+# make consistency check
+$command_directory/postfix check 2>&1
+
+# run Postfix
+exec $daemon_directory/master 2>&1
