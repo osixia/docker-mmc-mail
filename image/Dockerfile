@@ -8,7 +8,7 @@ CMD ["/container/tool/run"]
 # Install postfix, dovecot, opendkim, clamav, spamassassin
 RUN apt-get update \
     && /container/tool/install-multiple-process-stack \
-    && /container/tool/install-service-available ssl-helper-openssl \
+    && /container/tool/install-service-available ssl-helper-openssl ssl-helper-gnutls \
 	  && LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 	     postfix postfix-ldap  \
 	     dovecot-core dovecot-imapd dovecot-lmtpd dovecot-pop3d dovecot-ldap dovecot-sieve dovecot-managesieved \

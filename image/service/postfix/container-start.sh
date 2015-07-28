@@ -37,15 +37,17 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     # ldap tls config
     if [ "${MMC_MAIL_LDAP_CLIENT_TLS,,}" == "true" ]; then
 
-      # ldap ssl config
-      # check certificat and key or create it
-      /sbin/ssl-helper "/container/service/postfix/assets/ldap-client/certs/$MMC_MAIL_LDAP_CLIENT_TLS_CRT_FILENAME" "/container/service/postfix/assets/ldap-client/certs/$MMC_MAIL_LDAP_CLIENT_TLS_KEY_FILENAME" --ca-crt=/container/service/postfix/assets/ldap-client/certs/$MMC_MAIL_LDAP_CLIENT_TLS_CA_CRT_FILENAME
+      REQCERT="no"
 
-      echo "start_tls = no" >> $i;
+      if [ "${MMC_MAIL_LDAP_CLIENT_TLS_REQCERT,,}" == "demand" ]; then
+        REQCERT="yes"
+      fi
+
+      echo "start_tls = yes" >> $i;
+      echo "tls_require_cert = $REQCERT" >> $i;
       echo "tls_ca_cert_file = /container/service/postfix/assets/ldap-client/certs/$MMC_MAIL_LDAP_CLIENT_TLS_CA_CRT_FILENAME" >> $i;
       echo "tls_cert = /container/service/postfix/assets/ldap-client/certs/$MMC_MAIL_LDAP_CLIENT_TLS_CRT_FILENAME" >> $i;
       echo "tls_key = /container/service/postfix/assets/ldap-client/certs/$MMC_MAIL_LDAP_CLIENT_TLS_KEY_FILENAME" >> $i;
-      echo "tls_require_cert = no" >> $i;
     fi
   done
 

@@ -21,12 +21,13 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 
 	# ldap tls config
 	if [ "${MMC_MAIL_LDAP_CLIENT_TLS,,}" == "true" ]; then
-		echo "tls = no" >> /etc/dovecot/dovecot-ldap.conf.ext
-		echo "tls_ca_cert_file = /container/service/postfix/assets/ldap-client/certs/$MMC_MAIL_LDAP_CLIENT_TLS_CA_CRT_FILENAME" >> /etc/dovecot/dovecot-ldap.conf.ext
-		echo "tls_cert_file = /container/service/postfix/assets/ldap-client/certs/$MMC_MAIL_LDAP_CLIENT_TLS_CRT_FILENAME" >> /etc/dovecot/dovecot-ldap.conf.ext
-		echo "tls_key_file = /container/service/postfix/assets/ldap-client/certs/$MMC_MAIL_LDAP_CLIENT_TLS_KEY_FILENAME" >> /etc/dovecot/dovecot-ldap.conf.ext
-	fi
 
+		echo "tls = yes" >> /etc/dovecot/dovecot-ldap.conf.ext
+		echo "tls_require_cert = $MMC_MAIL_LDAP_CLIENT_TLS_REQCERT" >> /etc/dovecot/dovecot-ldap.conf.ext
+		echo "tls_ca_cert_file = /container/service/dovecot/assets/ldap-client/certs/$MMC_MAIL_LDAP_CLIENT_TLS_CA_CRT_FILENAME" >> /etc/dovecot/dovecot-ldap.conf.ext
+		echo "tls_cert_file = /container/service/dovecot/assets/ldap-client/certs/$MMC_MAIL_LDAP_CLIENT_TLS_CRT_FILENAME" >> /etc/dovecot/dovecot-ldap.conf.ext
+		echo "tls_key_file = /container/service/dovecot/assets/ldap-client/certs/$MMC_MAIL_LDAP_CLIENT_TLS_KEY_FILENAME" >> /etc/dovecot/dovecot-ldap.conf.ext
+	fi
 
 	# ssl
 	sed -i "s,/container/service/postfix/assets/certs/mailserver.crt,/container/service/postfix/assets/certs/${MMC_MAIL_SSL_CRT_FILENAME},g" /etc/dovecot/conf.d/10-ssl.conf
