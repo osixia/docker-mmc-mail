@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 command_directory=`postconf -h command_directory`
 daemon_directory=`$command_directory/postconf -h daemon_directory`
