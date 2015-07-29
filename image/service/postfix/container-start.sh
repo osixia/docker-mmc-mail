@@ -59,5 +59,6 @@ echo "127.0.0.1 localhost.localdomain" >> /etc/hosts
 
 # fix files permissions
 chown -R vmail:vmail /var/mail
+chmod 644 /etc/postfix/*.cf
 
 exit 0

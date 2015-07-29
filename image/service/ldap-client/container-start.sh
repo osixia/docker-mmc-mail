@@ -15,13 +15,11 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     sed -i "s,TLS_CACERT.*,TLS_CACERT /container/service/ldap-client/assets/certs/$MMC_MAIL_LDAP_CLIENT_TLS_CA_CRT_FILENAME,g" /etc/ldap/ldap.conf
     echo "TLS_REQCERT $MMC_MAIL_LDAP_CLIENT_TLS_REQCERT" >> /etc/ldap/ldap.conf
 
-    HOME=$( getent passwd "root" | cut -d: -f6 )
+    [[ -f "~/.ldaprc" ]] && rm -f ~/.ldaprc
+    touch ~/.ldaprc
 
-    [[ -f "$HOME/.ldaprc" ]] && rm -f $HOME/.ldaprc
-    touch $HOME/.ldaprc
-
-    echo "TLS_CERT /container/service/ldap-client/assets/certs/$MMC_MAIL_LDAP_CLIENT_TLS_CRT_FILENAME" >> $HOME/.ldaprc
-    echo "TLS_KEY /container/service/ldap-client/assets/certs/$MMC_MAIL_LDAP_CLIENT_TLS_KEY_FILENAME" >> $HOME/.ldaprc
+    echo "TLS_CERT /container/service/ldap-client/assets/certs/$MMC_MAIL_LDAP_CLIENT_TLS_CRT_FILENAME" >> ~/.ldaprc
+    echo "TLS_KEY /container/service/ldap-client/assets/certs/$MMC_MAIL_LDAP_CLIENT_TLS_KEY_FILENAME" >> ~/.ldaprc
 
     LDAP_AUTH="$LDAP_AUTH -ZZ"
 

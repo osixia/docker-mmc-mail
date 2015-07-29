@@ -2,7 +2,7 @@ uris = ldap://ldap.example.org:389
 auth_bind = yes
 ldap_version = 3
 base = ou=Users,dc=mandriva,dc=com
-user_attrs = mailbox=home,mailuserquota=quota_rule=*:bytes=%$
+user_attrs = mailuserquota=quota_rule=*:bytes=%$
 user_filter = (&(objectClass=mailAccount)(|(uid=%u)(mail=%u))(mailenable=OK))
 pass_attrs = mail=user,userPassword=password
 pass_filter = (&(objectClass=mailAccount)(mail=%u)(mailenable=OK))
