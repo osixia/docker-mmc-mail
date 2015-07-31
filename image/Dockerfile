@@ -31,7 +31,7 @@ RUN /container/tool/install-service \
 ADD env.yaml /etc/env.yaml
 
 # Set mails directory in a data volume
-VOLUME ["/var/mail"]
+VOLUME ["/var/mail", "/data/backup"]
 
 # Expose smtp, pop3, imap, smtp (submission) and managesieve ports
 EXPOSE 25 110 143 587 4190

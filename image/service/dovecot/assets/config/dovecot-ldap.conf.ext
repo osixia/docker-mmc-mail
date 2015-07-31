@@ -1,7 +1,7 @@
-uris = ldap://ldap.example.org:389
+uris = {{ MMC_MAIL_LDAP_URL }}
 auth_bind = yes
 ldap_version = 3
-base = ou=Users,dc=mandriva,dc=com
+base = ou=Users,{{ MMC_MAIL_LDAP_BASE_DN }}
 user_attrs = mailuserquota=quota_rule=*:bytes=%$
 user_filter = (&(objectClass=mailAccount)(|(uid=%u)(mail=%u))(mailenable=OK))
 pass_attrs = mail=user,userPassword=password

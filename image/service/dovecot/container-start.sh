@@ -6,8 +6,8 @@ FIRST_START_DONE="/etc/docker-dovecot-first-start-done"
 if [ ! -e "$FIRST_START_DONE" ]; then
 
 	# ldap
-	sed -i "s,ldap://ldap.example.org:389,$MMC_MAIL_LDAP_URL," /etc/dovecot/dovecot-ldap.conf.ext
-	sed -i "s/dc=mandriva,dc=com/$MMC_MAIL_LDAP_BASE_DN/" /etc/dovecot/dovecot-ldap.conf.ext
+	sed -i "s|{{ MMC_MAIL_LDAP_URL }}|${MMC_MAIL_LDAP_URL}|g" /etc/dovecot/dovecot-ldap.conf.ext
+	sed -i "s|{{ MMC_MAIL_LDAP_BASE_DN }}|${MMC_MAIL_LDAP_BASE_DN}|g" /etc/dovecot/dovecot-ldap.conf.ext
 
 	# ldap bind dn
 	if [ -n "${MMC_MAIL_LDAP_BIND_DN}" ]; then
@@ -30,9 +30,9 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 	fi
 
 	# ssl
-	sed -i "s,/container/service/postfix/assets/certs/mailserver.crt,/container/service/postfix/assets/certs/${MMC_MAIL_SSL_CRT_FILENAME},g" /etc/dovecot/conf.d/10-ssl.conf
-  sed -i "s,/container/service/postfix/assets/certs/mailserver.key,/container/service/postfix/assets/certs/${MMC_MAIL_SSL_KEY_FILENAME},g" /etc/dovecot/conf.d/10-ssl.conf
-	sed -i "s,/container/service/postfix/assets/certs/ca.crt,/container/service/postfix/assets/certs/${MMC_MAIL_SSL_CA_CRT_FILENAME},g" /etc/dovecot/conf.d/10-ssl.conf
+	sed -i "s|{{ MMC_MAIL_SSL_CRT_FILENAME }}|${MMC_MAIL_SSL_CRT_FILENAME}|g" /etc/dovecot/conf.d/10-ssl.conf
+  sed -i "s|{{ MMC_MAIL_SSL_KEY_FILENAME }}|${MMC_MAIL_SSL_KEY_FILENAME}|g" /etc/dovecot/conf.d/10-ssl.conf
+	sed -i "s|{{ MMC_MAIL_SSL_CA_CRT_FILENAME }}|${MMC_MAIL_SSL_CA_CRT_FILENAME}|g" /etc/dovecot/conf.d/10-ssl.conf
 
 	if [ "${MMC_MAIL_REPLICATION,,}" == "true" ]; then
 			/container/service/dovecot/assets/config/enable-config replication

@@ -1,5 +1,5 @@
-server_host = 127.0.0.1
-search_base = ou=Users,dc=mandriva,dc=com
+server_host = {{ MMC_MAIL_LDAP_URL }}
+search_base = ou=Users,{{ MMC_MAIL_LDAP_BASE_DN }}
 query_filter = (&(objectClass=mailAccount)(mailenable=OK)(mail=%s))
 result_attribute = maildrop
 version = 3

@@ -6,22 +6,22 @@ FIRST_START_DONE="/etc/docker-postfix-first-start-done"
 if [ ! -e "$FIRST_START_DONE" ]; then
 
   # set mailserver hostname
-  sed -i "s/hostname.domain.tld/${HOSTNAME}/g" /etc/postfix/main.cf
+  sed -i "s|{{ HOSTNAME }}|${HOSTNAME}|g" /etc/postfix/main.cf
 
   # postfix ssl config
   # check certificat and key or create it
   /sbin/ssl-helper "/container/service/postfix/assets/certs/$MMC_MAIL_SSL_CRT_FILENAME" "/container/service/postfix/assets/certs/$MMC_MAIL_SSL_KEY_FILENAME" --ca-crt=/container/service/postfix/assets/certs/$MMC_MAIL_SSL_CA_CRT_FILENAME
 
   # adapt tls ldif
-  sed -i "s,/container/service/postfix/assets/certs/ca.crt,/container/service/postfix/assets/certs/${MMC_MAIL_SSL_CA_CRT_FILENAME},g" /etc/postfix/main.cf
-  sed -i "s,/container/service/postfix/assets/certs/mailserver.crt,/container/service/postfix/assets/certs/${MMC_MAIL_SSL_CRT_FILENAME},g" /etc/postfix/main.cf
-  sed -i "s,/container/service/postfix/assets/certs/mailserver.key,/container/service/postfix/assets/certs/${MMC_MAIL_SSL_KEY_FILENAME},g" /etc/postfix/main.cf
+  sed -i "s|{{ MMC_MAIL_SSL_CA_CRT_FILENAME }}|${MMC_MAIL_SSL_CA_CRT_FILENAME}|g" /etc/postfix/main.cf
+  sed -i "s|{{ MMC_MAIL_SSL_CRT_FILENAME }}|${MMC_MAIL_SSL_CRT_FILENAME}|g" /etc/postfix/main.cf
+  sed -i "s|{{ MMC_MAIL_SSL_KEY_FILENAME }}|${MMC_MAIL_SSL_KEY_FILENAME}|g" /etc/postfix/main.cf
 
   # ldap config
   for i in `ls /etc/postfix/ldap-*.cf`;
   do
-    sed -i "s,127.0.0.1,$MMC_MAIL_LDAP_URL," $i;
-    sed -i "s/dc=mandriva,dc=com/$MMC_MAIL_LDAP_BASE_DN/" $i;
+    sed -i "s|{{ MMC_MAIL_LDAP_URL }}|${MMC_MAIL_LDAP_URL}|g" $i;
+    sed -i "s|{{ MMC_MAIL_LDAP_BASE_DN }}|${MMC_MAIL_LDAP_BASE_DN}|g" $i;
 
     # ldap bind dn
     if [ -n "${MMC_MAIL_LDAP_BIND_DN}" ]; then

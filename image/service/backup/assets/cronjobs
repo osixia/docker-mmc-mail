@@ -1,0 +1,2 @@
+# Backup mail directory
+{{ MMC_MAIL_BACKUP_CRON_EXP }} root /sbin/backup-mail
