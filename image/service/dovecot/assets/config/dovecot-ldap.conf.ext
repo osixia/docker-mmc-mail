@@ -5,6 +5,6 @@ base = ou=Users,{{ MMC_MAIL_LDAP_BASE_DN }}
 user_attrs = mailuserquota=quota_rule=*:bytes=%$
 user_filter = (&(objectClass=mailAccount)(|(uid=%u)(mail=%u))(mailenable=OK))
 pass_attrs = mail=user,userPassword=password
-pass_filter = (&(objectClass=mailAccount)(mail=%u)(mailenable=OK))
+pass_filter = (&(objectClass=mailAccount)(|(uid=%u)(mail=%u))(mailenable=OK))
 iterate_attrs = mail=user
 iterate_filter = (objectClass=mailAccount)

@@ -8,7 +8,7 @@ if [ ! -e "$FIRST_START_DONE" ]; then
   # set mailserver hostname
   sed -i "s|{{ HOSTNAME }}|${HOSTNAME}|g" /etc/postfix/main.cf
 
-  # postfix ssl config
+  # Mailserver ssl config
   # check certificat and key or create it
   /sbin/ssl-helper "/container/service/postfix/assets/certs/$MMC_MAIL_SSL_CRT_FILENAME" "/container/service/postfix/assets/certs/$MMC_MAIL_SSL_KEY_FILENAME" --ca-crt=/container/service/postfix/assets/certs/$MMC_MAIL_SSL_CA_CRT_FILENAME
 

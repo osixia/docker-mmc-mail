@@ -1,13 +1,9 @@
-# Le mot de passe est obtenu à partir de la base de donnée
 passdb {
   driver = ldap
   args = /etc/dovecot/dovecot-ldap.conf.ext
 }
 
-# Par contre le nom d'utilisateur est obtenu de manière statique à partir du conteneur local
-# %d = domaine.tld
-# %n = utilisateur
 userdb {
   driver = ldap
-  args = /etc/dovecot/dovecot-ldap.conf.ext
+  args = /etc/dovecot/dovecot-ldap-userdb.conf.ext
 }
