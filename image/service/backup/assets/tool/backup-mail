@@ -1,10 +1,15 @@
 #!/bin/bash -e
 
-# Usage: /sbin/slapd-backup dbnum filename
-pathBackup="/data/backup"
+# Usage: /sbin/backup-mail
+backupPath="/data/backup"
+
+source /etc/container_environment.sh
+
+# delete backups that are over $MMC_MAIL_BACKUP_MAX_DAYS days
+find $backupPath -type f -mtime +$MMC_MAIL_BACKUP_MAX_DAYS -exec rm {} \;
 
 # Date format for the dump file name
 dateFileFormat="+%F-%T"
-pathBackupFile="$pathBackup/$(date "$dateFileFormat")-mail.tar.gz"
+backupFilePath="$backupPath/$(date "$dateFileFormat")-mail.tar.gz"
 
-tar -czf $pathBackupFile -C / var/mail
+tar -czf $backupFilePath -C / var/mail
