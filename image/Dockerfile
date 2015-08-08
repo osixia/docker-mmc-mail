@@ -5,6 +5,9 @@ MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 # https://github.com/osixia/docker-light-baseimage/blob/stable/image/tool/run
 CMD ["/container/tool/run"]
 
+# Add vmail user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
+RUN groupadd -g 5000 vmail && useradd -g vmail -u 5000 vmail -d /var/mail
+
 # Install postfix, dovecot, opendkim, clamav, spamassassin
 RUN apt-get update \
     && /container/tool/install-multiple-process-stack \
