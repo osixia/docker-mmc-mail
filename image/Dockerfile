@@ -31,7 +31,7 @@ RUN /container/tool/install-service \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add default env variables
-ADD env.yaml /etc/env.yaml
+ADD env.yaml /container/environment/env.yaml
 
 # Set mails directory in a data volume
 VOLUME ["/var/mail", "/data/backup"]
