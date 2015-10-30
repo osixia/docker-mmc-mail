@@ -1,0 +1,6 @@
+server_host = {{ MMC_MAIL_LDAP_URL }}
+search_base = ou=mailAliases,{{ MMC_MAIL_LDAP_BASE_DN }}
+query_filter = (&(objectClass=mailAlias)(mailalias=%s)(mailenable=OK))
+result_attribute = mail
+special_result_attribute = mailaliasmember
+version = 3

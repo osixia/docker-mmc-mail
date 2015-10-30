@@ -1,0 +1,5 @@
+server_host = {{ MMC_MAIL_LDAP_URL }}
+search_base = ou=mailDomains,{{ MMC_MAIL_LDAP_BASE_DN }}
+query_filter = (&(objectClass=mailDomain)(virtualdomain=%s))
+result_attribute = virtualdomain
+version = 3

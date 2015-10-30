@@ -1,0 +1,16 @@
+#!/bin/bash -e
+
+# Usage :
+# /container/service/dovecot/assets/config/enable-config [config1] [config2] ...
+
+for i in $@
+do
+
+  if [ -f /container/service/dovecot/assets/config/config-available/$i/enable.sh ]; then
+    /container/service/dovecot/assets/config/config-available/$i/enable.sh
+  else
+    echo "enable-config: dovecot config $i not found."
+    exit 1
+  fi
+
+done
