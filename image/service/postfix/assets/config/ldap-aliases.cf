@@ -1,0 +1,5 @@
+server_host = {{ MMC_MAIL_LDAP_URL }}
+search_base = ou=Users,{{ MMC_MAIL_LDAP_BASE_DN }}
+query_filter = (&(objectClass=mailAccount)(mailalias=%s)(mailenable=OK))
+result_attribute = mail
+version = 3
