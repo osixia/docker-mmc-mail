@@ -38,6 +38,9 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 			/container/service/dovecot/assets/config/enable-config replication
 	fi
 
+	[ -f /etc/dovecot/dovecot-ldap-userdb.conf.ext ] && rm -f /etc/dovecot/dovecot-ldap-userdb.conf.ext
+	cp /etc/dovecot/dovecot-ldap.conf.ext /etc/dovecot/dovecot-ldap-userdb.conf.ext
+
   touch $FIRST_START_DONE
 fi
 
