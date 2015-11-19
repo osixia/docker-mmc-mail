@@ -1,4 +1,4 @@
-FROM osixia/light-baseimage:0.1.2
+FROM osixia/light-baseimage:0.1.4
 MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 
 # Use baseimage's init system.
@@ -36,5 +36,5 @@ ADD env.yaml /container/environment/env.yaml
 # Set mails directory in a data volume
 VOLUME ["/var/mail", "/data/backup"]
 
-# Expose smtp, pop3, imap, smtp (submission) and managesieve ports
-EXPOSE 25 110 143 587 4190
+# Expose smtp, pop3, imap, smtp (submission), managesieve and dovecot replication ports
+EXPOSE 25 110 143 587 4190 12345
