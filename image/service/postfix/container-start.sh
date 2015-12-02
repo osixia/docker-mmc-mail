@@ -17,8 +17,8 @@ if [ ! -e "$FIRST_START_DONE" ]; then
   sed -i "s|{{ MMC_MAIL_SSL_CRT_FILENAME }}|${MMC_MAIL_SSL_CRT_FILENAME}|g" /etc/postfix/main.cf
   sed -i "s|{{ MMC_MAIL_SSL_KEY_FILENAME }}|${MMC_MAIL_SSL_KEY_FILENAME}|g" /etc/postfix/main.cf
 
-  sed -i "s|{{ MMC_MAIL_SSL_CA_DHPARAM_1024 }}|${MMC_MAIL_SSL_CA_DHPARAM_1024}|g" /etc/postfix/main.cf
-  sed -i "s|{{ MMC_MAIL_SSL_CA_DHPARAM_512 }}|${MMC_MAIL_SSL_CA_DHPARAM_512}|g" /etc/postfix/main.cf
+  sed -i "s|{{ MMC_MAIL_SSL_DHPARAM_1024 }}|${MMC_MAIL_SSL_DHPARAM_1024}|g" /etc/postfix/main.cf
+  sed -i "s|{{ MMC_MAIL_SSL_DHPARAM_512 }}|${MMC_MAIL_SSL_DHPARAM_512}|g" /etc/postfix/main.cf
 
   # ldap config
   for i in `ls /etc/postfix/ldap-*.cf`;
