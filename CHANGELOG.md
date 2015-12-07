@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.4
+  - Fix certificates chain validation
+
 ## 0.1.3
   - Disable ssl_dh_parameters_length = 2048 due to some bugs in dovecot
   - Change MMC_MAIL_SSL_CA_DHPARAM_1024 to MMC_MAIL_SSL_DHPARAM_1024
