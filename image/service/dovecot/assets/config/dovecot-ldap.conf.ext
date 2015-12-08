@@ -3,8 +3,8 @@ auth_bind = yes
 ldap_version = 3
 base = ou=Users,{{ MMC_MAIL_LDAP_BASE_DN }}
 user_attrs = mailuserquota=quota_rule=*:bytes=%$
-user_filter = (&(objectClass=mailAccount)(uid=%n)(mailenable=OK))
+user_filter = (&(objectClass=mailAccount)(mail=%u)(mailenable=OK))
 pass_attrs = mail=user,userPassword=password
-pass_filter = (&(objectClass=mailAccount)(uid=%n)(mailenable=OK))
+pass_filter = (&(objectClass=mailAccount)(mail=%u)(mailenable=OK))
 iterate_attrs = mail=user
 iterate_filter = (objectClass=mailAccount)
