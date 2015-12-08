@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.5
+  - Fix sieve default script
+  - disable uid login, use only mail
+
 ## 0.1.4
   - Fix chained certificates validation
 
