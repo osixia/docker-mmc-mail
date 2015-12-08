@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.5
+  - Fix sieve default script
+
 ## 0.1.4
   - Fix chained certificates validation
 
