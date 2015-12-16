@@ -6,25 +6,25 @@ FIRST_START_DONE="/etc/docker-postfix-first-start-done"
 if [ ! -e "$FIRST_START_DONE" ]; then
 
   # set mailserver hostname
-  sed -i "s|{{ HOSTNAME }}|${HOSTNAME}|g" /etc/postfix/main.cf
+  sed -i --follow-symlinks "s|{{ HOSTNAME }}|${HOSTNAME}|g" /etc/postfix/main.cf
 
   # Mailserver ssl config
   # check certificat and key or create it
   /sbin/ssl-helper "/container/service/postfix/assets/certs/$MMC_MAIL_SSL_CRT_FILENAME" "/container/service/postfix/assets/certs/$MMC_MAIL_SSL_KEY_FILENAME" --ca-crt=/container/service/postfix/assets/certs/$MMC_MAIL_SSL_CA_CRT_FILENAME
 
   # adapt tls config
-  sed -i "s|{{ MMC_MAIL_SSL_CA_CRT_FILENAME }}|${MMC_MAIL_SSL_CA_CRT_FILENAME}|g" /etc/postfix/main.cf
-  sed -i "s|{{ MMC_MAIL_SSL_CRT_FILENAME }}|${MMC_MAIL_SSL_CRT_FILENAME}|g" /etc/postfix/main.cf
-  sed -i "s|{{ MMC_MAIL_SSL_KEY_FILENAME }}|${MMC_MAIL_SSL_KEY_FILENAME}|g" /etc/postfix/main.cf
+  sed -i --follow-symlinks "s|{{ MMC_MAIL_SSL_CA_CRT_FILENAME }}|${MMC_MAIL_SSL_CA_CRT_FILENAME}|g" /etc/postfix/main.cf
+  sed -i --follow-symlinks "s|{{ MMC_MAIL_SSL_CRT_FILENAME }}|${MMC_MAIL_SSL_CRT_FILENAME}|g" /etc/postfix/main.cf
+  sed -i --follow-symlinks "s|{{ MMC_MAIL_SSL_KEY_FILENAME }}|${MMC_MAIL_SSL_KEY_FILENAME}|g" /etc/postfix/main.cf
 
-  sed -i "s|{{ MMC_MAIL_SSL_DHPARAM_1024 }}|${MMC_MAIL_SSL_DHPARAM_1024}|g" /etc/postfix/main.cf
-  sed -i "s|{{ MMC_MAIL_SSL_DHPARAM_512 }}|${MMC_MAIL_SSL_DHPARAM_512}|g" /etc/postfix/main.cf
+  sed -i --follow-symlinks "s|{{ MMC_MAIL_SSL_DHPARAM_1024 }}|${MMC_MAIL_SSL_DHPARAM_1024}|g" /etc/postfix/main.cf
+  sed -i --follow-symlinks "s|{{ MMC_MAIL_SSL_DHPARAM_512 }}|${MMC_MAIL_SSL_DHPARAM_512}|g" /etc/postfix/main.cf
 
   # ldap config
   for i in `ls /etc/postfix/ldap-*.cf`;
   do
-    sed -i "s|{{ MMC_MAIL_LDAP_URL }}|${MMC_MAIL_LDAP_URL}|g" $i;
-    sed -i "s|{{ MMC_MAIL_LDAP_BASE_DN }}|${MMC_MAIL_LDAP_BASE_DN}|g" $i;
+    sed -i --follow-symlinks "s|{{ MMC_MAIL_LDAP_URL }}|${MMC_MAIL_LDAP_URL}|g" $i;
+    sed -i --follow-symlinks "s|{{ MMC_MAIL_LDAP_BASE_DN }}|${MMC_MAIL_LDAP_BASE_DN}|g" $i;
 
     # ldap bind dn
     if [ -n "${MMC_MAIL_LDAP_BIND_DN}" ]; then

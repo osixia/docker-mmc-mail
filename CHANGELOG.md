@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.6
+  - Upgrade baseimage: light-baseimage:0.2.0
+  - Makefile with build no cache
+
 ## 0.1.5
   - Fix sieve default script
   - disable uid login, use only mail
