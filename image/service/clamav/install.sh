@@ -11,6 +11,3 @@ mkdir /var/spool/postfix/clamav
 chown clamav /var/spool/postfix/clamav
 
 sed -i --follow-symlinks "s|Foreground false|Foreground true|g" /etc/clamav/clamd.conf
-
-ln -s /container/service/clamav/assets/cronjobs /etc/cron.d/clamav
-chmod 600 /container/service/clamav/assets/cronjobs

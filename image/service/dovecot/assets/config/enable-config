@@ -1,13 +1,17 @@
 #!/bin/bash -e
 
+# set -x (bash debug) if log level is trace
+# https://github.com/osixia/docker-light-baseimage/blob/stable/image/tool/log-helper
+log-helper level eq trace && set -x
+
 # Usage :
-# /container/service/dovecot/assets/config/enable-config [config1] [config2] ...
+# enable-config [config1] [config2] ...
 
 for i in $@
 do
 
-  if [ -f /container/service/dovecot/assets/config/config-available/$i/enable.sh ]; then
-    /container/service/dovecot/assets/config/config-available/$i/enable.sh
+  if [ -f ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/config-available/$i/enable.sh ]; then
+    ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/config-available/$i/enable.sh
   else
     echo "enable-config: dovecot config $i not found."
     exit 1

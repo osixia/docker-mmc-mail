@@ -1,17 +1,15 @@
+# Use osixia/light-baseimage
+# sources: https://github.com/osixia/docker-light-baseimage
 FROM osixia/light-baseimage:0.2.0
 MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
-
-# Use baseimage's init system.
-# https://github.com/osixia/docker-light-baseimage/blob/stable/image/tool/run
-CMD ["/container/tool/run"]
 
 # Add vmail user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN groupadd -g 5000 vmail && useradd -g vmail -u 5000 vmail -d /var/mail
 
 # Install postfix, dovecot, opendkim, clamav, spamassassin
 RUN apt-get update \
-    && /container/tool/install-multiple-process-stack \
-    && /container/tool/install-service-available ssl-helper-openssl ssl-helper-gnutls \
+    && /container/tool/add-multiple-process-stack \
+    && /container/tool/add-service-available :cfssl \
 	  && LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 	     postfix postfix-ldap  \
 	     dovecot-core dovecot-imapd dovecot-lmtpd dovecot-pop3d dovecot-ldap dovecot-sieve dovecot-managesieved \
@@ -31,7 +29,7 @@ RUN /container/tool/install-service \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add default env variables
-ADD env.yaml /container/environment/env.yaml
+ADD environment /container/environment/99-default
 
 # Set mails directory in a data volume
 VOLUME ["/var/mail", "/data/backup"]
