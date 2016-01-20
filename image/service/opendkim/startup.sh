@@ -27,26 +27,29 @@ if [ -n "${MMC_MAIL_LDAP_BIND_PW}" ]; then
   LDAP_AUTH="$LDAP_AUTH -w ${MMC_MAIL_LDAP_BIND_PW}"
 fi
 
+if [ "${MMC_MAIL_LDAP_CLIENT_TLS,,}" == "true" ]; then
+  LDAP_AUTH="$LDAP_AUTH -ZZ"
+fi
+
 # better way ?
 HOST_FILE="ldap-hosts"
 touch $HOST_FILE
 
-echo "/sbin/setuser root ldapsearch -x -H ${MMC_MAIL_LDAP_URL} -b ${MMC_MAIL_LDAP_BASE_DN} \"(&(objectClass=mailDomain)(virtualdomain=*))\" ${LDAP_AUTH}"
 /sbin/setuser root ldapsearch -x -H ${MMC_MAIL_LDAP_URL} -b ${MMC_MAIL_LDAP_BASE_DN} "(&(objectClass=mailDomain)(virtualdomain=*))" ${LDAP_AUTH} | grep "virtualdomain:" > ${HOST_FILE} || true
 sed -i --follow-symlinks "s/virtualdomain: //g" $HOST_FILE
 
 for domain in $(cat $HOST_FILE);
 do
 
-  echo "Domain: $domain"
+  log-helper info "Domain: $domain"
 
   # the domain private key doesn't exists -> generate one
   if [ ! -f "${CONTAINER_SERVICE_DIR}/opendkim/assets/keys/$domain.key" ]; then
 
-    echo "-> key not found, generating one"
+    log-helper info "-> key not found, generating one"
     opendkim-genkey --domain=$domain --append-domain --selector=$MMC_MAIL_OPENDKIM_SELECTOR --directory ${CONTAINER_SERVICE_DIR}/opendkim/assets/keys
 
-    echo "-> add the following DNS entry:"
+    log-helper info "-> add the following DNS entry:"
     cat ${CONTAINER_SERVICE_DIR}/opendkim/assets/keys/mail.txt
 
     mv ${CONTAINER_SERVICE_DIR}/opendkim/assets/keys/mail.private ${CONTAINER_SERVICE_DIR}/opendkim/assets/keys/$domain.key

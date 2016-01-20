@@ -4,7 +4,7 @@
 # https://github.com/osixia/docker-light-baseimage/blob/stable/image/tool/log-helper
 log-helper level eq trace && set -x
 
-sv start clamav || exit 1
+sv start /container/run/process/clamav || exit 1
 
 sleep 30
 

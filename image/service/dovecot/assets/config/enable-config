@@ -13,7 +13,7 @@ do
   if [ -f ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/config-available/$i/enable.sh ]; then
     ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/config-available/$i/enable.sh
   else
-    echo "enable-config: dovecot config $i not found."
+    log-helper error "enable-config: dovecot config $i not found."
     exit 1
   fi
 

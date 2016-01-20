@@ -14,9 +14,9 @@ if [ ! -e "$FIRST_START_DONE" ]; then
   # set mailserver hostname
   sed -i "s|{{ HOSTNAME }}|${HOSTNAME}|g" ${CONTAINER_SERVICE_DIR}/postfix/assets/config/main.cf
 
-  # Mailserver ssl config
-  # check certificat and key or create it
-  /sbin/ssl-helper "${CONTAINER_SERVICE_DIR}/postfix/assets/certs/$MMC_MAIL_SSL_CRT_FILENAME" "${CONTAINER_SERVICE_DIR}/postfix/assets/certs/$MMC_MAIL_SSL_KEY_FILENAME" "${CONTAINER_SERVICE_DIR}/postfix/assets/certs/$MMC_MAIL_SSL_CA_CRT_FILENAME"
+  # generate a certificate and key if files don't exists
+  # https://github.com/osixia/docker-light-baseimage/blob/stable/image/service-available/:cfssl/assets/tool/cfssl-helper
+  cfssl-helper ${MMC_MAIL_CFSSL_PREFIX} "${CONTAINER_SERVICE_DIR}/postfix/assets/certs/$MMC_MAIL_SSL_CRT_FILENAME" "${CONTAINER_SERVICE_DIR}/postfix/assets/certs/$MMC_MAIL_SSL_KEY_FILENAME" "${CONTAINER_SERVICE_DIR}/postfix/assets/certs/$MMC_MAIL_SSL_CA_CRT_FILENAME"
 
   MMC_MAIL_SSL_CA_CRT_PATH="${CONTAINER_SERVICE_DIR}/postfix/assets/certs/${MMC_MAIL_SSL_CA_CRT_FILENAME}"
   MMC_MAIL_SSL_CRT_PATH="${CONTAINER_SERVICE_DIR}/postfix/assets/certs/${MMC_MAIL_SSL_CRT_FILENAME}"
@@ -84,6 +84,6 @@ echo "127.0.0.1 localhost.localdomain" >> /etc/hosts
 # fix files permissions
 chown -R vmail:vmail /var/mail
 chmod 644 /etc/postfix/*.cf
-chmod 644 ${CONTAINER_SERVICE_DIR}/postfix/config/${CONTAINER_SERVICE_DIR}
+chmod 644 ${CONTAINER_SERVICE_DIR}/postfix/assets/config/*.cf
 
 exit 0
