@@ -5,10 +5,10 @@
 log-helper level eq trace && set -x
 
 # install image tools
-ln -s ${CONTAINER_SERVICE_DIR}/backup/assets/tool/* /sbin/
+ln -sf ${CONTAINER_SERVICE_DIR}/backup/assets/tool/* /sbin/
 
 # add cron jobs
-ln -s ${CONTAINER_SERVICE_DIR}/backup/assets/cronjobs /etc/cron.d/backup
+ln -sf ${CONTAINER_SERVICE_DIR}/backup/assets/cronjobs /etc/cron.d/backup
 chmod 600 ${CONTAINER_SERVICE_DIR}/backup/assets/cronjobs
 
 FIRST_START_DONE="${CONTAINER_STATE_DIR}/docker-backup-backup-first-start-done"

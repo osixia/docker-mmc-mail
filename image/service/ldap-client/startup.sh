@@ -24,8 +24,8 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     mkdir -p ${CONTAINER_SERVICE_DIR}/dovecot/assets/ldap-client/certs
     mkdir -p ${CONTAINER_SERVICE_DIR}/postfix/assets/ldap-client/certs
 
-    cp ${CONTAINER_SERVICE_DIR}/ldap-client/assets/certs/* ${CONTAINER_SERVICE_DIR}/dovecot/assets/ldap-client/certs
-    cp ${CONTAINER_SERVICE_DIR}/ldap-client/assets/certs/* ${CONTAINER_SERVICE_DIR}/postfix/assets/ldap-client/certs
+    cp -f ${CONTAINER_SERVICE_DIR}/ldap-client/assets/certs/* ${CONTAINER_SERVICE_DIR}/dovecot/assets/ldap-client/certs
+    cp -f ${CONTAINER_SERVICE_DIR}/ldap-client/assets/certs/* ${CONTAINER_SERVICE_DIR}/postfix/assets/ldap-client/certs
 
     chown -R dovecot:dovecot ${CONTAINER_SERVICE_DIR}/dovecot/assets/ldap-client/certs
     chown -R postfix:postfix ${CONTAINER_SERVICE_DIR}/postfix/assets/ldap-client/certs

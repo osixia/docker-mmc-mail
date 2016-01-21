@@ -5,7 +5,7 @@
 log-helper level eq trace && set -x
 
 [[ ! -d /var/mail/sieve/ ]] && mkdir -p /var/mail/sieve/
-ln -fs ${CONTAINER_SERVICE_DIR}/sieve/assets/default.sieve /var/mail/sieve/default.sieve
+ln -sf ${CONTAINER_SERVICE_DIR}/sieve/assets/default.sieve /var/mail/sieve/default.sieve
 chown -R vmail:vmail /var/mail/sieve
 
 sievec /var/mail/sieve/default.sieve
