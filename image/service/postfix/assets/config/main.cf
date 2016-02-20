@@ -32,7 +32,7 @@ alias_database = hash:/etc/aliases
 # ----------------------------------------------------------------------
 smtp_tls_loglevel               = 1
 smtp_tls_security_level         = may
-smtp_tls_CAfile                 = /container/service/postfix/assets/certs/{{ MMC_MAIL_SSL_CA_CRT_FILENAME }}
+smtp_tls_CAfile                 = {{ MMC_MAIL_SSL_CA_CRT_PATH }}
 smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
 
 # SMTPD ( INCOMING )
@@ -48,9 +48,9 @@ smtpd_tls_exclude_ciphers     = aNULL, eNULL, EXPORT, DES, RC4, MD5, PSK, aECDH,
 tls_random_source = dev:/dev/urandom
 
 # TLS PUBLIC CERTIFICATES AND PRIVATE KEY
-smtpd_tls_CAfile    = /container/service/postfix/assets/certs/{{ MMC_MAIL_SSL_CA_CRT_FILENAME }}
-smtpd_tls_cert_file = /container/service/postfix/assets/certs/{{ MMC_MAIL_SSL_CRT_FILENAME }}
-smtpd_tls_key_file  = /container/service/postfix/assets/certs/{{ MMC_MAIL_SSL_KEY_FILENAME }}
+smtpd_tls_CAfile    = {{ MMC_MAIL_SSL_CA_CRT_PATH }}
+smtpd_tls_cert_file = {{ MMC_MAIL_SSL_CRT_PATH }}
+smtpd_tls_key_file  = {{ MMC_MAIL_SSL_KEY_PATH }}
 
 # TLS/LMTP SESSION CACHE DATABASES
 smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
@@ -62,8 +62,8 @@ tls_eecdh_strong_curve = prime256v1
 tls_eecdh_ultra_curve  = secp384r1
 
 # DIFFIE-HELLMAN PARAMETERS
-smtpd_tls_dh1024_param_file = /container/service/postfix/assets/certs/{{ MMC_MAIL_SSL_DHPARAM_1024 }}
-smtpd_tls_dh512_param_file  = /container/service/postfix/assets/certs/{{ MMC_MAIL_SSL_DHPARAM_512 }}
+smtpd_tls_dh1024_param_file = {{ MMC_MAIL_SSL_DHPARAM_1024_PATH }}
+smtpd_tls_dh512_param_file  = {{ MMC_MAIL_SSL_DHPARAM_512_PATH }}
 
 # ----------------------------------------------------------------------
 
