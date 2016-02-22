@@ -35,7 +35,7 @@ fi
 HOST_FILE="ldap-hosts"
 touch $HOST_FILE
 
-/sbin/setuser root ldapsearch -x -H ${MMC_MAIL_LDAP_URL} -b ${MMC_MAIL_LDAP_BASE_DN} "(&(objectClass=mailDomain)(virtualdomain=*))" ${LDAP_AUTH} | grep "virtualdomain:" > ${HOST_FILE} || true
+/sbin/setuser root ldapsearch -x -H ${MMC_MAIL_LDAP_URL} -b ${MMC_MAIL_LDAP_BASE_DN} "(&(objectClass=mailDomain)(virtualdomain=*))" ${LDAP_AUTH} | grep "virtualdomain:" > ${HOST_FILE}
 sed -i --follow-symlinks "s/virtualdomain: //g" $HOST_FILE
 
 for domain in $(cat $HOST_FILE);
