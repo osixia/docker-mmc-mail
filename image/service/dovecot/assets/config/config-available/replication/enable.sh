@@ -15,7 +15,28 @@ if [ ! -e "$FIRST_START_DONE" ]; then
   sed -i "s|{{ MMC_MAIL_REPLICATION_HOST }}|${MMC_MAIL_REPLICATION_HOST}|g" ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/config-available/replication/config/90-replication.conf
 
   if [ "${MMC_MAIL_REPLICATION_SSL,,}" == "true" ]; then
-    sed -i "s|#ssl =|ssl =|g" ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/config-available/replication/config/90-replication.conf
+    MMC_MAIL_REPLICATION_SSL_CRT_PATH="${CONTAINER_SERVICE_DIR}/postfix/assets/certs/${MMC_MAIL_REPLICATION_SSL_CRT_FILENAME}"
+  	MMC_MAIL_REPLICATION_SSL_KEY_PATH="${CONTAINER_SERVICE_DIR}/postfix/assets/certs/${MMC_MAIL_REPLICATION_SSL_KEY_FILENAME}"
+    MMC_MAIL_REPLICATION_SSL_CA_CRT_PATH="${CONTAINER_SERVICE_DIR}/postfix/assets/certs/${MMC_MAIL_REPLICATION_SSL_CA_CRT_FILENAME}"
+
+    if [ -n "${MMC_MAIL_REPLICATION_LOCAL_NAME}" ]; then
+      export MMCMAILREP_CFSSL_HOSTNAME=${MMC_MAIL_REPLICATION_LOCAL_NAME}
+      echo "local_name ${MMC_MAIL_REPLICATION_LOCAL_NAME} {" >> ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/10-ssl.conf
+      echo "ssl_cert = <${MMC_MAIL_REPLICATION_SSL_CRT_PATH}" >> ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/10-ssl.conf
+      echo "ssl_key = <${MMC_MAIL_REPLICATION_SSL_KEY_PATH}" >> ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/10-ssl.conf
+      echo "}" >> ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/10-ssl.conf
+    fi
+
+    echo "ssl_cert = <${MMC_MAIL_REPLICATION_SSL_CRT_PATH}" >> ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/10-ssl.conf
+    echo "ssl_key = <${MMC_MAIL_REPLICATION_SSL_KEY_PATH}" >> ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/10-ssl.conf
+
+    # generate a certificate and key if files don't exists
+    # https://github.com/osixia/docker-light-baseimage/blob/stable/image/service-available/:cfssl/assets/tool/cfssl-helper
+    cfssl-helper ${MMC_MAIL_REPLICATION_CFSSL_PREFIX} "${MMC_MAIL_REPLICATION_SSL_CRT_PATH}" "${MMC_MAIL_REPLICATION_SSL_KEY_PATH}" "${MMC_MAIL_REPLICATION_SSL_CA_CRT_PATH}"
+
+    echo "ssl_client_ca_file = ${MMC_MAIL_REPLICATION_SSL_CA_CRT_PATH}" >> ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/10-ssl.conf
+
+    sed -i "s|#ssl|ssl|g" ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/config-available/replication/config/90-replication.conf
     sed -i "s|tcp:|tcps:|g" ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/config-available/replication/config/90-replication.conf
   fi
 fi

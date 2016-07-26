@@ -2,6 +2,8 @@
 
 ## 0.1.8
   - Fix opendkim config
+  - Upgrade baseimage: light-baseimage:0.2.4
+  - Add tls certificates for replication only
 
 ## 0.1.7
   - Upgrade baseimage: light-baseimage:0.2.2

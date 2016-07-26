@@ -40,12 +40,11 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 
 	MMC_MAIL_SSL_CRT_PATH="${CONTAINER_SERVICE_DIR}/postfix/assets/certs/${MMC_MAIL_SSL_CRT_FILENAME}"
 	MMC_MAIL_SSL_KEY_PATH="${CONTAINER_SERVICE_DIR}/postfix/assets/certs/${MMC_MAIL_SSL_KEY_FILENAME}"
-	MMC_MAIL_SSL_CA_CRT_PATH="${CONTAINER_SERVICE_DIR}/postfix/assets/certs/${MMC_MAIL_SSL_CA_CRT_FILENAME}"
 
 	# ssl
+	sed -i "s|{{ HOSTNAME }}|${HOSTNAME}|g" ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/10-ssl.conf
 	sed -i "s|{{ MMC_MAIL_SSL_CRT_PATH }}|${MMC_MAIL_SSL_CRT_PATH}|g" ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/10-ssl.conf
   sed -i "s|{{ MMC_MAIL_SSL_KEY_PATH }}|${MMC_MAIL_SSL_KEY_PATH}|g" ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/10-ssl.conf
-	sed -i "s|{{ MMC_MAIL_SSL_CA_CRT_PATH }}|${MMC_MAIL_SSL_CA_CRT_PATH}|g" ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/10-ssl.conf
 
   touch $FIRST_START_DONE
 fi
