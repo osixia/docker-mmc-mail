@@ -9,7 +9,7 @@ RUN groupadd -g 5000 vmail && useradd -g vmail -u 5000 vmail -d /var/mail
 # Install postfix, dovecot, opendkim, clamav, spamassassin
 RUN apt-get update \
     && /container/tool/add-multiple-process-stack \
-    && /container/tool/add-service-available :cfssl \
+    && /container/tool/add-service-available :ssl-tools \
 	  && LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 	     postfix postfix-ldap  \
 	     dovecot-core dovecot-imapd dovecot-lmtpd dovecot-pop3d dovecot-ldap dovecot-sieve dovecot-managesieved \

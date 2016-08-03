@@ -21,6 +21,7 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 
     if [ -n "${MMC_MAIL_REPLICATION_LOCAL_NAME}" ]; then
       export MMCMAILREP_CFSSL_HOSTNAME=${MMC_MAIL_REPLICATION_LOCAL_NAME}
+      export MMCMAILREP_JSONSSL_HOSTNAME=${MMC_MAIL_REPLICATION_LOCAL_NAME}
       echo "local_name ${MMC_MAIL_REPLICATION_LOCAL_NAME} {" >> ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/10-ssl.conf
       echo "ssl_cert = <${MMC_MAIL_REPLICATION_SSL_CRT_PATH}" >> ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/10-ssl.conf
       echo "ssl_key = <${MMC_MAIL_REPLICATION_SSL_KEY_PATH}" >> ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/10-ssl.conf
@@ -31,8 +32,8 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     echo "ssl_key = <${MMC_MAIL_REPLICATION_SSL_KEY_PATH}" >> ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/10-ssl.conf
 
     # generate a certificate and key if files don't exists
-    # https://github.com/osixia/docker-light-baseimage/blob/stable/image/service-available/:cfssl/assets/tool/cfssl-helper
-    cfssl-helper ${MMC_MAIL_REPLICATION_CFSSL_PREFIX} "${MMC_MAIL_REPLICATION_SSL_CRT_PATH}" "${MMC_MAIL_REPLICATION_SSL_KEY_PATH}" "${MMC_MAIL_REPLICATION_SSL_CA_CRT_PATH}"
+    # https://github.com/osixia/docker-light-baseimage/blob/stable/image/service-available/:json-tools/assets/tool/ssl-helper
+    ssl-helper ${MMC_MAIL_REPLICATION_SSL_HELPER_PREFIX} "${MMC_MAIL_REPLICATION_SSL_CRT_PATH}" "${MMC_MAIL_REPLICATION_SSL_KEY_PATH}" "${MMC_MAIL_REPLICATION_SSL_CA_CRT_PATH}"
 
     echo "ssl_client_ca_file = ${MMC_MAIL_REPLICATION_SSL_CA_CRT_PATH}" >> ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/10-ssl.conf
 
