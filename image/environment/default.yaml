@@ -1,5 +1,7 @@
 # Global config
 
+MMC_MAIL_RELAYHOST:
+
 # Ldap server
 MMC_MAIL_LDAP_URL: ldap://ldap.example.org:389
 MMC_MAIL_LDAP_BASE_DN: dc=example,dc=org
