@@ -14,6 +14,7 @@ RUN apt-get update \
 	     postfix postfix-ldap  \
 	     dovecot-core dovecot-imapd dovecot-lmtpd dovecot-pop3d dovecot-ldap dovecot-sieve dovecot-managesieved \
 	     opendkim opendkim-tools ldap-utils\
+       opendmarc \
 	     spamassassin spamc \
 	     clamav clamav-base clamav-freshclam clamav-daemon clamav-milter \
 	     arj bzip2 cabextract cpio file gzip lzop nomarch p7zip pax rpm unrar-free unzip zip zoo \
