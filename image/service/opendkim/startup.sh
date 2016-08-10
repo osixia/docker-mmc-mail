@@ -69,5 +69,6 @@ chmod 755 ${CONTAINER_SERVICE_DIR}/opendkim/assets/keys
 chmod 600 ${CONTAINER_SERVICE_DIR}/opendkim/assets/keys/*
 chown opendkim:opendkim -R ${CONTAINER_SERVICE_DIR}/opendkim/assets/keys
 chown opendkim:opendkim -R /etc/opendkim
+chown opendkim:opendkim -R /etc/opendkim.conf
 
 exit 0

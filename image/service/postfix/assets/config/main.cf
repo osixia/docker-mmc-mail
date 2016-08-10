@@ -139,5 +139,5 @@ smtpd_sender_restrictions =
 
 milter_protocol       = 6
 milter_default_action = accept
-smtpd_milters         = inet:127.0.0.1:12301 unix:/var/spool/postfix/opendmarc/opendmarc.sock unix:/var/spool/postfix/clamav/clamav-milter.ctl
-non_smtpd_milters     = inet:127.0.0.1:12301
+smtpd_milters         = inet:127.0.0.1:12301 inet:127.0.0.1:12302 unix:/var/spool/postfix/clamav/clamav-milter.ctl
+non_smtpd_milters     = inet:127.0.0.1:12301 inet:127.0.0.1:12302
