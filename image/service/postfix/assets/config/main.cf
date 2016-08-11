@@ -7,7 +7,6 @@ biff                 = no
 append_dot_mydomain  = no
 readme_directory     = no
 delay_warning_time   = 4h
-mailbox_command      = procmail -a "$EXTENSION"
 recipient_delimiter  = +
 disable_vrfy_command = yes
 message_size_limit   = 52428800
@@ -18,7 +17,7 @@ inet_protocols = ipv4
 
 myhostname    = {{ HOSTNAME }}
 myorigin      = $mydomain
-mydestination = localhost localhost.$mydomain
+mydestination = localhost
 mynetworks    = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
 
 relayhost = {{ MMC_MAIL_RELAYHOST }}
@@ -87,8 +86,6 @@ broken_sasl_auth_clients = yes
 ## VIRTUALS MAPS PARAMETERS ##
 ##############################
 
-smtpd_sender_login_maps = ldap:/etc/postfix/ldap-senders.cf
-
 virtual_uid_maps        = static:5000
 virtual_gid_maps        = static:5000
 virtual_minimum_uid     = 5000
@@ -96,14 +93,13 @@ virtual_mailbox_base    = /var/mail
 virtual_transport       = lmtp:unix:private/dovecot-lmtp
 virtual_mailbox_domains = ldap:/etc/postfix/ldap-domains.cf
 virtual_mailbox_maps    = ldap:/etc/postfix/ldap-accounts.cf
-virtual_alias_maps      = ldap:/etc/postfix/ldap-aliases.cf, ldap:/etc/postfix/ldap-maildrop.cf, ldap:/etc/postfix/ldap-valiases.cf
+virtual_alias_maps      = ldap:/etc/postfix/ldap-aliases.cf,ldap:/etc/postfix/ldap-valiases.cf
 
 ######################
 ## ERRORS REPORTING ##
 ######################
 
 # notify_classes = bounce, delay, resource, software
-notify_classes = resource, software
 
 ##################
 ## RESTRICTIONS ##
@@ -138,11 +134,8 @@ smtpd_client_restrictions =
      # reject_unauth_pipelining
 
 smtpd_sender_restrictions =
-     reject_unlisted_sender,
      reject_non_fqdn_sender,
-     reject_unknown_sender_domain,
-     reject_sender_login_mismatch,
-     reject_authenticated_sender_login_mismatch
+     reject_unknown_sender_domain
 
 #########################
 ## MILTERS DKIM/CLAMAV ##
