@@ -87,6 +87,8 @@ broken_sasl_auth_clients = yes
 ## VIRTUALS MAPS PARAMETERS ##
 ##############################
 
+smtpd_sender_login_maps = ldap:/etc/postfix/ldap-senders.cf
+
 virtual_uid_maps        = static:5000
 virtual_gid_maps        = static:5000
 virtual_minimum_uid     = 5000
@@ -110,9 +112,15 @@ notify_classes = resource, software
 smtpd_recipient_restrictions =
      permit_mynetworks,
      permit_sasl_authenticated,
+     reject_invalid_hostname,
+     reject_non_fqdn_hostname,
      reject_non_fqdn_recipient,
      reject_unauth_destination,
      reject_unknown_recipient_domain,
+     reject_unknown_sender_domain,
+     reject_unauth_pipelining,
+     permit_auth_destination,
+     reject_unauth_destination,
      reject_rbl_client zen.spamhaus.org
 
 smtpd_helo_restrictions =
@@ -130,8 +138,11 @@ smtpd_client_restrictions =
      # reject_unauth_pipelining
 
 smtpd_sender_restrictions =
+     reject_unlisted_sender,
      reject_non_fqdn_sender,
-     reject_unknown_sender_domain
+     reject_unknown_sender_domain,
+     reject_sender_login_mismatch,
+     reject_authenticated_sender_login_mismatch
 
 #########################
 ## MILTERS DKIM/CLAMAV ##
