@@ -95,6 +95,8 @@ virtual_mailbox_domains = ldap:/etc/postfix/ldap-domains.cf
 virtual_mailbox_maps    = ldap:/etc/postfix/ldap-accounts.cf
 virtual_alias_maps      = ldap:/etc/postfix/ldap-aliases.cf,ldap:/etc/postfix/ldap-valiases.cf
 
+smtpd_sender_login_maps=ldap:/etc/postfix/ldap-senders.cf,ldap:/etc/postfix/ldap-valiases.cf
+
 ######################
 ## ERRORS REPORTING ##
 ######################
@@ -135,7 +137,8 @@ smtpd_client_restrictions =
 
 smtpd_sender_restrictions =
      reject_non_fqdn_sender,
-     reject_unknown_sender_domain
+     reject_unknown_sender_domain,
+     reject_authenticated_sender_login_mismatch
 
 #########################
 ## MILTERS DKIM/CLAMAV ##
