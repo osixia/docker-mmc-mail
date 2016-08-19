@@ -40,6 +40,8 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     sed -i "s|#ssl|ssl|g" ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/config-available/replication/config/90-replication.conf
     sed -i "s|tcp:|tcps:|g" ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/config-available/replication/config/90-replication.conf
   fi
+
+  touch $FIRST_START_DONE
 fi
 
 exit 0
