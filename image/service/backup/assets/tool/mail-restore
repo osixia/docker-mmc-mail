@@ -1,0 +1,9 @@
+#!/bin/bash -e
+
+# Usage: /sbin/mail-restore file
+file=$1
+backupPath="/data/backup"
+
+tar -xzf $backupPath/$file -C /
+
+exit 0

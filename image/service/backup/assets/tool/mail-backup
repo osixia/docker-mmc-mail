@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-# Usage: /sbin/backup-mail
+# Usage: /sbin/mail-backup
 backupPath="/data/backup"
 
 source /container/run/environment.sh
@@ -13,3 +13,5 @@ dateFileFormat="+%Y%m%dT%H%M%S"
 backupFilePath="$backupPath/$(date "$dateFileFormat")-mail.tar.gz"
 
 tar -czf $backupFilePath -C / var/mail
+
+exit 0
