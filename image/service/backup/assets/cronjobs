@@ -1,2 +1,3 @@
 # Backup mail directory
-{{ MMC_MAIL_BACKUP_CRON_EXP }} root /sbin/backup-mail 2>&1 | /usr/bin/logger -s -t backup-mail
+{{ MMC_MAIL_BACKUP_CRON_EXP }} root /sbin/mail-backup 2>&1 | /usr/bin/logger -s -t mail-backup
+# empty line

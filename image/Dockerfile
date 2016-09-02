@@ -1,6 +1,6 @@
 # Use osixia/light-baseimage
 # sources: https://github.com/osixia/docker-light-baseimage
-FROM osixia/light-baseimage:0.2.2
+FROM osixia/light-baseimage:0.2.5
 MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 
 # Add vmail user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
@@ -9,11 +9,12 @@ RUN groupadd -g 5000 vmail && useradd -g vmail -u 5000 vmail -d /var/mail
 # Install postfix, dovecot, opendkim, clamav, spamassassin
 RUN apt-get update \
     && /container/tool/add-multiple-process-stack \
-    && /container/tool/add-service-available :cfssl \
+    && /container/tool/add-service-available :ssl-tools \
 	  && LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 	     postfix postfix-ldap  \
 	     dovecot-core dovecot-imapd dovecot-lmtpd dovecot-pop3d dovecot-ldap dovecot-sieve dovecot-managesieved \
 	     opendkim opendkim-tools ldap-utils\
+       opendmarc \
 	     spamassassin spamc \
 	     clamav clamav-base clamav-freshclam clamav-daemon clamav-milter \
 	     arj bzip2 cabextract cpio file gzip lzop nomarch p7zip pax rpm unrar-free unzip zip zoo \

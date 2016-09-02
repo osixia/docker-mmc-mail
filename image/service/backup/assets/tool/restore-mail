@@ -1,6 +1,0 @@
-#!/bin/bash -e
-
-# Usage: /sbin/restore-mail file
-file=$1
-
-tar -xzf $file -C /

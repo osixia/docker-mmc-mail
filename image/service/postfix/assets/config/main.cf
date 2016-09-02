@@ -7,7 +7,6 @@ biff                 = no
 append_dot_mydomain  = no
 readme_directory     = no
 delay_warning_time   = 4h
-mailbox_command      = procmail -a "$EXTENSION"
 recipient_delimiter  = +
 disable_vrfy_command = yes
 message_size_limit   = 52428800
@@ -18,8 +17,10 @@ inet_protocols = ipv4
 
 myhostname    = {{ HOSTNAME }}
 myorigin      = $mydomain
-mydestination = localhost localhost.$mydomain
+mydestination = localhost
 mynetworks    = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+
+relayhost = {{ MMC_MAIL_RELAYHOST }}
 
 alias_maps     = hash:/etc/aliases
 alias_database = hash:/etc/aliases
@@ -92,14 +93,15 @@ virtual_mailbox_base    = /var/mail
 virtual_transport       = lmtp:unix:private/dovecot-lmtp
 virtual_mailbox_domains = ldap:/etc/postfix/ldap-domains.cf
 virtual_mailbox_maps    = ldap:/etc/postfix/ldap-accounts.cf
-virtual_alias_maps      = ldap:/etc/postfix/ldap-aliases.cf, ldap:/etc/postfix/ldap-maildrop.cf, ldap:/etc/postfix/ldap-valiases.cf
+virtual_alias_maps      = ldap:/etc/postfix/ldap-aliases.cf,ldap:/etc/postfix/ldap-valiases.cf
+
+smtpd_sender_login_maps=ldap:/etc/postfix/ldap-senders.cf,ldap:/etc/postfix/ldap-valiases.cf
 
 ######################
 ## ERRORS REPORTING ##
 ######################
 
 # notify_classes = bounce, delay, resource, software
-notify_classes = resource, software
 
 ##################
 ## RESTRICTIONS ##
@@ -108,9 +110,15 @@ notify_classes = resource, software
 smtpd_recipient_restrictions =
      permit_mynetworks,
      permit_sasl_authenticated,
+     reject_invalid_hostname,
+     reject_non_fqdn_hostname,
      reject_non_fqdn_recipient,
      reject_unauth_destination,
      reject_unknown_recipient_domain,
+     reject_unknown_sender_domain,
+     reject_unauth_pipelining,
+     permit_auth_destination,
+     reject_unauth_destination,
      reject_rbl_client zen.spamhaus.org
 
 smtpd_helo_restrictions =
@@ -129,7 +137,8 @@ smtpd_client_restrictions =
 
 smtpd_sender_restrictions =
      reject_non_fqdn_sender,
-     reject_unknown_sender_domain
+     reject_unknown_sender_domain,
+     reject_authenticated_sender_login_mismatch
 
 #########################
 ## MILTERS DKIM/CLAMAV ##
@@ -137,5 +146,5 @@ smtpd_sender_restrictions =
 
 milter_protocol       = 6
 milter_default_action = accept
-smtpd_milters         = inet:127.0.0.1:12301 unix:/var/spool/postfix/clamav/clamav-milter.ctl
-non_smtpd_milters     = inet:127.0.0.1:12301
+smtpd_milters         = inet:127.0.0.1:12301 inet:127.0.0.1:12302 unix:/var/spool/postfix/clamav/clamav-milter.ctl
+non_smtpd_milters     = inet:127.0.0.1:12301 inet:127.0.0.1:12302

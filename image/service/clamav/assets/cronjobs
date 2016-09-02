@@ -1,1 +1,2 @@
 10 * * * * root /usr/bin/freshclam --quiet 2>&1 | /usr/bin/logger -s -t freshclam
+# empty line
