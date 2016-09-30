@@ -1,5 +1,5 @@
 NAME = osixia/mmc-mail
-VERSION = 0.1.8
+VERSION = 1.0.0
 
 .PHONY: all build build-nocache test tag_latest release
 
