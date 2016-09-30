@@ -83,10 +83,6 @@ cp -f /etc/services /var/spool/postfix/etc/services
 # copy dns settings to chroot jail
 cp -f /etc/resolv.conf /var/spool/postfix/etc/resolv.conf
 
-
-# set hosts
-echo "127.0.0.1 localhost.localdomain" >> /etc/hosts
-
 # fix files permissions
 chown -R vmail:vmail /var/mail
 chmod 644 /etc/postfix/*.cf
