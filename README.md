@@ -1,4 +1,4 @@
-docker-postfix-dovecot
+docker-mmc-mail
 ======================
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/osixia/mmc-mail.svg)][hub]
