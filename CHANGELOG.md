@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0
+  - Upgrade baseimage: light-baseimage:0.2.6
+  - Startup optimised
+
 ## 0.1.8
   - Fix opendkim config
   - Upgrade baseimage: light-baseimage:0.2.5

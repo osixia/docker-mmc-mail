@@ -13,5 +13,6 @@ dateFileFormat="+%Y%m%dT%H%M%S"
 backupFilePath="$backupPath/$(date "$dateFileFormat")-mail.tar.gz"
 
 tar -czf $backupFilePath -C / var/mail
+chmod 600 $backupFilePath
 
 exit 0
