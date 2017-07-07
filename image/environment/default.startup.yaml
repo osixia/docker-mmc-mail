@@ -7,7 +7,7 @@ MMC_MAIL_LDAP_BASE_DN: dc=example,dc=org
 
 # can be leaved empty if your ldap allow read by everybody
 MMC_MAIL_LDAP_BIND_DN: cn=readonly,dc=example,dc=org
-MMC_MAIL_LDAP_BIND_PW: readonly-password
+MMC_MAIL_LDAP_BIND_PW: readonly
 
 # Ldap client tls config
 MMC_MAIL_LDAP_CLIENT_TLS: true
