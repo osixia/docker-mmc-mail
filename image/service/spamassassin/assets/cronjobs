@@ -1,7 +1,7 @@
 # Update spamassassin rules
-20 02 * * * root /usr/bin/sa-update 2>&1 | /usr/bin/logger -s -t sa-update
+20 02 * * * root /usr/bin/sa-update > /proc/1/fd/1 2>/proc/1/fd/2
 
 # Learning Spam
-30 02 * * * root /usr/bin/sa-learn --ham /var/mail/vhosts/*/*/cur/* 2>&1 | /usr/bin/logger -s -t sa-learn
-40 02 * * * root /usr/bin/sa-learn --spam /var/mail/vhosts/*/*/.Spam/cur/* 2>&1 | /usr/bin/logger -s -t sa-learn
+30 02 * * * root /usr/bin/sa-learn --ham /var/mail/vhosts/*/*/cur/* > /proc/1/fd/1 2>/proc/1/fd/2
+40 02 * * * root /usr/bin/sa-learn --spam /var/mail/vhosts/*/*/.Spam/cur/* > /proc/1/fd/1 2>/proc/1/fd/2
 # empty line

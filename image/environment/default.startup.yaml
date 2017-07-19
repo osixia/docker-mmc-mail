@@ -7,7 +7,7 @@ MMC_MAIL_LDAP_BASE_DN: dc=example,dc=org
 
 # can be leaved empty if your ldap allow read by everybody
 MMC_MAIL_LDAP_BIND_DN: cn=readonly,dc=example,dc=org
-MMC_MAIL_LDAP_BIND_PW: readonly-password
+MMC_MAIL_LDAP_BIND_PW: readonly
 
 # Ldap client tls config
 MMC_MAIL_LDAP_CLIENT_TLS: true
@@ -42,6 +42,9 @@ MMC_MAIL_REPLICATION_SSL_CA_CRT_FILENAME: ca.crt
 MMC_MAIL_SSL_HELPER_PREFIX: mmcmail
 MMC_MAIL_REPLICATION_SSL_HELPER_PREFIX: mmcmailrep
 LDAP_CLIENT_SSL_HELPER_PREFIX: ldapclient
+
+# logs
+MMC_MAIL_LOG_TO_STDOUT: true
 
 # ssl-helper auto-renew
 SSL_HELPER_AUTO_RENEW_SERVICES_IMPACTED: postfix dovecot
