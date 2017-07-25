@@ -1,7 +1,7 @@
 # Changelog
 
 ## 1.1.1
-  - Allow auth by ldap uid
+  - Allow auth by ldap uid only
 
 ## 1.1.0
   - Upgrade baseimage: light-baseimage:1.1.0 (debian stretch)
