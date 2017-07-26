@@ -28,7 +28,7 @@ MMC_MAIL_SSL_DHPARAM_512: dhparam512.pem
 MMC_MAIL_OPENDKIM_SELECTOR: mail
 
 # Replication
-MMC_MAIL_REPLICATION_LOCAL_NAME: #leave empty to use default hostname
+MMC_MAIL_REPLICATION_LOCAL_NAME: #leave empty to use default hostname, multiple hostnames possible separated by , ex: host1.com,host2.com
 MMC_MAIL_REPLICATION: false
 MMC_MAIL_REPLICATION_PASSWORD: secret
 MMC_MAIL_REPLICATION_HOST: mail-replica.example.org

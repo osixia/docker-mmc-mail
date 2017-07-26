@@ -22,10 +22,16 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     if [ -n "${MMC_MAIL_REPLICATION_LOCAL_NAME}" ]; then
       export ${MMC_MAIL_REPLICATION_SSL_HELPER_PREFIX^^}_CFSSL_HOSTNAME=${MMC_MAIL_REPLICATION_LOCAL_NAME}
       export ${MMC_MAIL_REPLICATION_SSL_HELPER_PREFIX^^}_JSONSSL_HOSTNAME=${MMC_MAIL_REPLICATION_LOCAL_NAME}
-      echo "local_name ${MMC_MAIL_REPLICATION_LOCAL_NAME} {" >> ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/11-ssl-local-name.conf
-      echo "  ssl_cert = <${MMC_MAIL_REPLICATION_SSL_CRT_PATH}" >> ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/11-ssl-local-name.conf
-      echo "  ssl_key = <${MMC_MAIL_REPLICATION_SSL_KEY_PATH}" >> ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/11-ssl-local-name.conf
-      echo "}" >> ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/11-ssl-local-name.conf
+
+      IFS=',' read -ra REPLICATION_LOCAL_NAMES <<< "$MMC_MAIL_REPLICATION_LOCAL_NAME"
+      for local_name in "${REPLICATION_LOCAL_NAMES[@]}"; do
+          if [ -n "$local_name" ]; then
+            echo "local_name ${local_name} {" >> ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/11-ssl-local-name.conf
+            echo "  ssl_cert = <${MMC_MAIL_REPLICATION_SSL_CRT_PATH}" >> ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/11-ssl-local-name.conf
+            echo "  ssl_key = <${MMC_MAIL_REPLICATION_SSL_KEY_PATH}" >> ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/11-ssl-local-name.conf
+            echo "}" >> ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/11-ssl-local-name.conf
+          fi
+      done
     fi
 
     echo "ssl_cert = <${MMC_MAIL_REPLICATION_SSL_CRT_PATH}" >> ${CONTAINER_SERVICE_DIR}/dovecot/assets/config/conf.d/10-ssl.conf

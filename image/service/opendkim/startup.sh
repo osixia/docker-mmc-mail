@@ -19,7 +19,10 @@ FIRST_START_DONE="${CONTAINER_STATE_DIR}/docker-opendkim-first-start-done"
 if [ ! -e "$FIRST_START_DONE" ]; then
 
   echo "$HOSTNAME" >> /etc/opendkim/TrustedHosts
-  [[ -n "$MMC_MAIL_REPLICATION_LOCAL_NAME" ]] && echo "$MMC_MAIL_REPLICATION_LOCAL_NAME" >> /etc/opendkim/TrustedHosts
+  IFS=',' read -ra REPLICATION_LOCAL_NAMES <<< "$MMC_MAIL_REPLICATION_LOCAL_NAME"
+  for local_name in "${REPLICATION_LOCAL_NAMES[@]}"; do
+      [[ -n "$local_name" ]] && echo "$local_name" >> /etc/opendkim/TrustedHosts
+  done
   [[ -n "$MMC_MAIL_REPLICATION_HOST" ]] && echo "$MMC_MAIL_REPLICATION_HOST" >> /etc/opendkim/TrustedHosts
 
   # list mail domains
