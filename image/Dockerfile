@@ -18,6 +18,7 @@ RUN apt-get update \
 	     spamassassin spamc \
 	     clamav clamav-base clamav-freshclam clamav-daemon clamav-milter \
 	     arj bzip2 cabextract cpio file gzip lzop nomarch p7zip pax rpm unrar-free unzip zip zoo \
+       ca-certificates \
 	  && freshclam  -v \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
