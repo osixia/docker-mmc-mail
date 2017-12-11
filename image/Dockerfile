@@ -1,6 +1,6 @@
 # Use osixia/light-baseimage
 # sources: https://github.com/osixia/docker-light-baseimage
-FROM osixia/light-baseimage:1.1.0
+FROM osixia/light-baseimage:1.1.1
 MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 
 # Add vmail user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
@@ -18,6 +18,7 @@ RUN apt-get update \
 	     spamassassin spamc \
 	     clamav clamav-base clamav-freshclam clamav-daemon clamav-milter \
 	     arj bzip2 cabextract cpio file gzip lzop nomarch p7zip pax rpm unrar-free unzip zip zoo \
+       ca-certificates \
 	  && freshclam  -v \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -35,5 +36,5 @@ ADD environment /container/environment/99-default
 # Set mails directory in a data volume
 VOLUME ["/var/mail", "/data/backup"]
 
-# Expose smtp, pop3, imap, smtp (submission), managesieve and dovecot replication ports
-EXPOSE 25 110 143 587 4190 12345
+# Expose smtp, pop3, imap, smtp (submission), imap ssl, managesieve and dovecot replication ports
+EXPOSE 25 110 143 587 993 4190 12345
