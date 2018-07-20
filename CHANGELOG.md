@@ -1,28 +1,32 @@
 # Changelog
 
+## [1.1.2] - Unreleased
+### Changed
+  - Upgrade baseimage to light-baseimage:1.1.2
+
 ## 1.1.1
   - Allow auth by ldap uid only
   - Add imaps support (port 993)
-  - Upgrade baseimage: light-baseimage:1.1.1
+  - Upgrade baseimage to light-baseimage:1.1.1
 
 ## 1.1.0
-  - Upgrade baseimage: light-baseimage:1.1.0 (debian stretch)
+  - Upgrade baseimage to light-baseimage:1.1.0 (debian stretch)
 
 ## 1.0.0
-  - Upgrade baseimage: light-baseimage:0.2.6
+  - Upgrade baseimage to light-baseimage:0.2.6
   - Startup optimised
 
 ## 0.1.8
   - Fix opendkim config
-  - Upgrade baseimage: light-baseimage:0.2.5
+  - Upgrade baseimage to light-baseimage:0.2.5
   - Add tls certificates for replication only
   - Add opendmarc
 
 ## 0.1.7
-  - Upgrade baseimage: light-baseimage:0.2.2
+  - Upgrade baseimage to light-baseimage:0.2.2
 
 ## 0.1.6
-  - Upgrade baseimage: light-baseimage:0.2.0
+  - Upgrade baseimage to light-baseimage:0.2.0
   - Makefile with build no cache
 
 ## 0.1.5
