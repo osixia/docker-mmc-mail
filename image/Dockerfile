@@ -36,5 +36,5 @@ ADD environment /container/environment/99-default
 # Set mails directory in a data volume
 VOLUME ["/var/mail", "/data/backup"]
 
-# Expose smtp, pop3, imap, smtp (submission), imap ssl, managesieve and dovecot replication ports
-EXPOSE 25 110 143 587 993 4190 12345
+# Expose smtp, pop3, imap, smtp (submission), imap ssl, pop ssl, managesieve and dovecot replication ports
+EXPOSE 25 110 143 587 993 995 4190 12345
