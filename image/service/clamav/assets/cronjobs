@@ -1,2 +1,3 @@
-10 * * * * root /usr/bin/freshclam --quiet > /proc/1/fd/1 2>/proc/1/fd/2
+# Update clamav database
+{{ MMC_MAIL_FRESHCLAM_CRON_EXP }} root /usr/bin/freshclam --quiet 2>&1 | /usr/bin/logger -t cron_freshclam
 # empty line

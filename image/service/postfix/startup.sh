@@ -75,7 +75,7 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 
   if [ "${MMC_MAIL_LOG_TO_STDOUT,,}" == "true" ]; then
     touch /var/log/mail.log
-    ln -sf /proc/1/fd/1 /var/log/mail.log
+    ln -sf /dev/stdout /var/log/mail.log
   fi
 
   touch $FIRST_START_DONE

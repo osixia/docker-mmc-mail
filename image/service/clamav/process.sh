@@ -6,7 +6,4 @@ log-helper level eq trace && set -x
 
 chown -R clamav:clamav /var/run/clamav
 
-ln -sf ${CONTAINER_SERVICE_DIR}/clamav/assets/cronjobs /etc/cron.d/clamav
-chmod 600 ${CONTAINER_SERVICE_DIR}/clamav/assets/cronjobs
-
 exec /usr/sbin/clamd

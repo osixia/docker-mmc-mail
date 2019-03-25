@@ -1,8 +1,14 @@
 # Changelog
 
 ## [1.1.2] - Unreleased
+### Added
+  - Opendmarc IgnoreAuthenticatedClients true
+  - MMC_MAIL_FRESHCLAM_CRON_EXP MMC_MAIL_SPAMASSASSIN_UPDATE_CRON_EXP MMC_MAIL_SPAMASSASSIN_HAM_CRON_EXP MMC_MAIL_SPAMASSASSIN_SPAM_CRON_EXP  config options and environment variables
+
 ### Changed
   - Upgrade baseimage to light-baseimage:1.1.2
+  - cron logs with /usr/bin/logger
+  - replace /proc/1/fd/1 with /dev/stdout
 
 ## 1.1.1
   - Allow auth by ldap uid only
