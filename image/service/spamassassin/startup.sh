@@ -16,10 +16,17 @@ FIRST_START_DONE="${CONTAINER_STATE_DIR}/docker-spamassassin-first-start-done"
 if [ ! -e "$FIRST_START_DONE" ]; then
     
     # adapt cronjobs file
+    log-helper info "Configure cronjobs"
     sed -i "s|{{ MMC_MAIL_SPAMASSASSIN_UPDATE_CRON_EXP }}|${MMC_MAIL_SPAMASSASSIN_UPDATE_CRON_EXP}|g" ${CONTAINER_SERVICE_DIR}/spamassassin/assets/cronjobs
     sed -i "s|{{ MMC_MAIL_SPAMASSASSIN_HAM_CRON_EXP }}|${MMC_MAIL_SPAMASSASSIN_HAM_CRON_EXP}|g" ${CONTAINER_SERVICE_DIR}/spamassassin/assets/cronjobs
     sed -i "s|{{ MMC_MAIL_SPAMASSASSIN_SPAM_CRON_EXP }}|${MMC_MAIL_SPAMASSASSIN_SPAM_CRON_EXP}|g" ${CONTAINER_SERVICE_DIR}/spamassassin/assets/cronjobs
     
+    log-helper info "Learn ham"
+    sa-learn --ham /var/mail/vhosts/*/*/cur/*
+
+    log-helper info "Learn spam"
+    sa-learn --spam /var/mail/vhosts/*/*/.Spam/cur/*
+
     touch $FIRST_START_DONE
 fi
 

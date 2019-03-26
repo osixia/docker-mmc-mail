@@ -4,6 +4,7 @@
 ### Added
   - Opendmarc IgnoreAuthenticatedClients true
   - MMC_MAIL_FRESHCLAM_CRON_EXP MMC_MAIL_SPAMASSASSIN_UPDATE_CRON_EXP MMC_MAIL_SPAMASSASSIN_HAM_CRON_EXP MMC_MAIL_SPAMASSASSIN_SPAM_CRON_EXP  config options and environment variables
+  - Learn ham and spam on container first start
 
 ### Changed
   - Upgrade baseimage to light-baseimage:1.1.2
