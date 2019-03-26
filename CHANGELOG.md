@@ -9,6 +9,7 @@
   - Upgrade baseimage to light-baseimage:1.1.2
   - cron logs with /usr/bin/logger
   - replace /proc/1/fd/1 with /dev/stdout
+  - remove freshclam --quiet argument
 
 ## 1.1.1
   - Allow auth by ldap uid only
