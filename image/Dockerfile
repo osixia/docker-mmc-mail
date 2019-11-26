@@ -1,6 +1,6 @@
 # Use osixia/light-baseimage
 # sources: https://github.com/osixia/docker-light-baseimage
-FROM osixia/light-baseimage:1.1.2
+FROM osixia/light-baseimage:release-1.2.0-dev
 
 # Add vmail user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN groupadd -g 5000 vmail && useradd -g vmail -u 5000 vmail -d /var/mail
@@ -16,7 +16,7 @@ RUN apt-get update \
 	opendmarc \
 	spamassassin spamc \
 	clamav clamav-base clamav-freshclam clamav-daemon clamav-milter \
-	arj bzip2 cabextract cpio file gzip lzop nomarch p7zip pax rpm unrar-free unzip zip zoo \
+	arj bzip2 cabextract cpio file gzip lzop nomarch p7zip pax rpm unrar-free unzip zip tar \
 	ca-certificates \
 	&& freshclam  -v \
 	&& apt-get clean \

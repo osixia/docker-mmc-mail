@@ -7,7 +7,7 @@
   - Learn ham and spam on container first start
 
 ### Changed
-  - Upgrade baseimage to light-baseimage:1.1.2
+  - Upgrade baseimage to light-baseimage:1.2.0
   - cron logs with /usr/bin/logger
   - remove freshclam --quiet argument
 
