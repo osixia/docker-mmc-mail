@@ -1,0 +1,3 @@
+# Backup mail directory
+{{ MMC_MAIL_DOVECOT_TRASH_EXPUNGE_CRON_EXP }} root doveadm expunge -A mailbox Trash savedbefore {{ MMC_MAIL_DOVECOT_TRASH_EXPUNGE_DAYS }}d 2>&1 | /usr/bin/logger -t cron_dovecot_trash_expunge
+# empty line
