@@ -128,6 +128,11 @@ smtpd_sender_restrictions =
      reject_unlisted_sender,
      reject_rhsbl_sender dbl.spamhaus.org
 
+smtpd_relay_restrictions =
+     permit_mynetworks,
+     permit_sasl_authenticated,
+     defer_unauth_destination
+
 #########################
 ## MILTERS DKIM/CLAMAV ##
 #########################
