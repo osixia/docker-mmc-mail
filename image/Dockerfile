@@ -1,6 +1,6 @@
 # Use osixia/light-baseimage
 # sources: https://github.com/osixia/docker-light-baseimage
-FROM osixia/light-baseimage:release-1.2.0-dev
+FROM osixia/light-baseimage:1.3.3
 
 # Add vmail user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN groupadd -g 5000 vmail && useradd -g vmail -u 5000 vmail -d /var/mail
